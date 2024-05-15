@@ -1,8 +1,6 @@
 package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.client.util.ParticleUtil;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -30,9 +28,11 @@ public class InjectBlock
 	}
 
 	@Inject(at = @At("TAIL"), method = "randomDisplayTick")
-	public void spawnFireflies(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci)
+	public void spawnParticles(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci)
 	{
 		Block block = state.getBlock();
+		
+		// Fireflies
 		boolean isGrass = block == Blocks.GRASS || block == Blocks.TALL_GRASS;
 		if (isGrass ||
 			block instanceof FlowerBlock ||
@@ -48,7 +48,7 @@ public class InjectBlock
 		else if (block == Blocks.AIR || block == Blocks.CAVE_AIR)
 		{
 			// Cave dust
-			if (random.nextInt(500) == 0 && pos.getY() < world.getSeaLevel() && isValidBiome(world.getBiome(pos)) && !state.isOf(Blocks.VOID_AIR))
+			if (random.nextInt(500) == 0 && pos.getY() < world.getSeaLevel() && isValidBiome(world.getBiome(pos)))
 			{
 				float lightChance = 1f - Math.min(8, world.getLightLevel(LightType.SKY, pos)) / 8f;
 				float depthChance = Math.min(1f, (world.getSeaLevel() - pos.getY()) / 96f);
