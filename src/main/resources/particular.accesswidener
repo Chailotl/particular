@@ -1,0 +1,7 @@
+accessWidener v2 named
+accessible method net/minecraft/client/particle/BubbleColumnUpParticle <init> (Lnet/minecraft/client/world/ClientWorld;DDDDDD)V
+accessible method net/minecraft/client/particle/BubblePopParticle <init> (Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/client/particle/SpriteProvider;)V
+accessible class net/minecraft/client/particle/BlockLeakParticle$ContinuousFalling
+accessible class net/minecraft/world/biome/Biome$Weather
+accessible field net/minecraft/client/particle/ParticleManager particleAtlasTexture Lnet/minecraft/client/texture/SpriteAtlasTexture;
+accessible method net/minecraft/client/texture/SpriteAtlasTexture getWidth ()I

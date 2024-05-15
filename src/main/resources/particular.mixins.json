@@ -1,0 +1,36 @@
+{
+	"required": true,
+	"package": "com.chailotl.particular.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"client": [
+		"AccessorBiome",
+		"AccessorBillboardParticle",
+		"AccessorBlockLeakParticle",
+		"AccessorChestBlockEntity",
+		"AccessorEnderChestBlockEntity",
+		"AccessorParticle",
+		"InjectAirBlock",
+		"InjectBarrelBlock",
+		"InjectBlockLeakParticle",
+		"InjectBubbleColumnUpParticle",
+		"InjectCakeBlock",
+		"InjectChestBlock",
+		"InjectChestBlockEntity",
+		"InjectContinuousFalling",
+		"InjectEnderChestBlock",
+		"InjectEnderChestBlockEntity",
+		"InjectEntity",
+		"InjectFlowableFluid",
+		"InjectBlock",
+		"InjectLeavesBlock",
+		"InjectWaterBubbleParticle",
+		"InjectWaterFluid",
+		"InvokerLivingEntity",
+		"ModifyWorldRenderer"
+	]
+}
