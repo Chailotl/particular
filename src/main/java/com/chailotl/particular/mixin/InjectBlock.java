@@ -31,7 +31,7 @@ public class InjectBlock
 	public void spawnParticles(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci)
 	{
 		Block block = state.getBlock();
-		
+
 		// Fireflies
 		boolean isGrass = block == Blocks.GRASS || block == Blocks.TALL_GRASS;
 		if (isGrass ||
@@ -48,7 +48,7 @@ public class InjectBlock
 		else if (block == Blocks.AIR || block == Blocks.CAVE_AIR)
 		{
 			// Cave dust
-			if (random.nextInt(500) == 0 && pos.getY() < world.getSeaLevel() && isValidBiome(world.getBiome(pos)))
+			if (random.nextInt(700) == 0 && pos.getY() < world.getSeaLevel() && isValidBiome(world.getBiome(pos)))
 			{
 				float lightChance = 1f - Math.min(8, world.getLightLevel(LightType.SKY, pos)) / 8f;
 				float depthChance = Math.min(1f, (world.getSeaLevel() - pos.getY()) / 96f);
