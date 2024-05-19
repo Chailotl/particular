@@ -6,13 +6,17 @@ import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
+import net.fabricmc.fabric.api.client.networking.v1.C2SPlayChannelEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.particle.DefaultParticleType;
@@ -57,6 +61,7 @@ public class Main implements ClientModInitializer
 	public static final DefaultParticleType WATER_SPLASH_FOAM = FabricParticleTypes.simple(true);
 	public static final DefaultParticleType WATER_SPLASH_RING = FabricParticleTypes.simple(true);
 
+	public static Identifier currentDimension;
 	public static Hashtable<BlockPos, Integer> cascades = new Hashtable<>();
 	private static float fireflyFrequency = 1f;
 
@@ -108,6 +113,14 @@ public class Main implements ClientModInitializer
 		ClientChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
 			if (!Main.CONFIG.cascades()) { return; }
 
+			// Changing dimensions doesn't count as unloading chunks so I need to do this test
+			Identifier newDimension = world.getDimension().effects();
+			if (newDimension != currentDimension)
+			{
+				currentDimension = newDimension;
+				cascades.clear();
+			}
+
 			chunk.forEachBlockMatchingPredicate(state -> state.getFluidState().isOf(Fluids.WATER), (pos, state) -> {
 				updateCascade(world, pos, state.getFluidState());
 			});
@@ -124,15 +137,17 @@ public class Main implements ClientModInitializer
 			});
 		});
 
-		ClientPlayConnectionEvents.DISCONNECT.register((foo, bar) -> {
+		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
 			cascades.clear();
 		});
 
 		ClientTickEvents.START_WORLD_TICK.register(world -> {
+			Random random = world.random;
+
 			// Set firefly frequency
 			if (world.getTimeOfDay() == 12000)
 			{
-				fireflyFrequency = switch(world.random.nextBetween(0, 5)) {
+				fireflyFrequency = switch(random.nextBetween(0, 5)) {
 					default -> 0f;
 					case 3 -> 0.33f;
 					case 4 -> 0.66f;
@@ -144,8 +159,6 @@ public class Main implements ClientModInitializer
 
 			// Cascades
 			if (!Main.CONFIG.cascades()) { return; }
-
-			Random random = world.random;
 
 			cascades.forEach((pos, strength) -> {
 				float height = world.getFluidState(pos.up()).getHeight();
