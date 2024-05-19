@@ -1,5 +1,6 @@
 package com.chailotl.particular.mixin;
 
+import com.chailotl.particular.Main;
 import net.minecraft.client.particle.BlockLeakParticle;
 import net.minecraft.fluid.Fluids;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,6 +17,8 @@ public class InjectBlockLeakParticle
 		cancellable = true)
 	public void getBrightness(float tint, CallbackInfoReturnable<Integer> cir)
 	{
+		if (!Main.CONFIG.emissiveLavaDrips()) { return; }
+
 		if (((AccessorBlockLeakParticle) this).getFluid().matchesType(Fluids.LAVA))
 		{
 			cir.setReturnValue(15728880);

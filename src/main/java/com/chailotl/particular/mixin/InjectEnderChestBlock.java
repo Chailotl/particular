@@ -22,6 +22,8 @@ public class InjectEnderChestBlock
 		at = @At("HEAD"))
 	private void releaseBubbles(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
 	{
+		if (!Main.CONFIG.chestBubbles()) { return; }
+
 		if (!state.get(Properties.WATERLOGGED) || world.getBlockState(pos.up()).isSolidBlock(world, pos.up()))
 		{
 			return;

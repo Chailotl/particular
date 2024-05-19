@@ -1,5 +1,6 @@
 package com.chailotl.particular.mixin;
 
+import com.chailotl.particular.Main;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ParticleUtil;
@@ -27,6 +28,8 @@ public class InjectBarrelBlock
 		at = @At("HEAD"))
 	private void releaseBubbles(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
 	{
+		if (!Main.CONFIG.barrelBubbles()) { return; }
+
 		Direction direction = state.get(Properties.FACING);
 
 		if (direction == Direction.DOWN || !world.getFluidState(pos.add(direction.getVector())).isIn(FluidTags.WATER))

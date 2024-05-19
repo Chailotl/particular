@@ -31,6 +31,8 @@ public abstract class InjectContinuousFalling extends SpriteBillboardParticle
 		at = @At("TAIL"))
 	private void addRipples(CallbackInfo ci)
 	{
+		if (!Main.CONFIG.waterDripRipples()) { return; }
+
 		if (nextParticle != ParticleTypes.SPLASH)
 		{
 			return;

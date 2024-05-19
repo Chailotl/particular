@@ -1,0 +1,16 @@
+{
+	"text.config.particular.title": "Particular Config",
+	"text.config.particular.option.waterSplash": "Water Splashes",
+	"text.config.particular.option.cascades": "Cascades",
+	"text.config.particular.option.waterfallSpray": "Waterfall Spray",
+	"text.config.particular.option.fireflies": "Fireflies",
+	"text.config.particular.option.fallingLeaves": "Falling Leaves",
+	"text.config.particular.option.caveDust": "Cave Dust",
+	"text.config.particular.option.chestBubbles": "Chest Bubbles",
+	"text.config.particular.option.barrelBubbles": "Barrel Bubbles",
+	"text.config.particular.option.poppingBubbles": "Popping Bubbles",
+	"text.config.particular.option.rainRipples": "Rain Ripples",
+	"text.config.particular.option.waterDripRipples": "Water Drip Ripples",
+	"text.config.particular.option.cakeEatingParticles": "Cake Eating Particles",
+	"text.config.particular.option.emissiveLavaDrips": "Emissive Lava Drips"
+}

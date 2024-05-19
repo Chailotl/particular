@@ -1,5 +1,6 @@
 package com.chailotl.particular.mixin;
 
+import com.chailotl.particular.Main;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteBillboardParticle;
@@ -24,6 +25,8 @@ public abstract class InjectWaterBubbleParticle extends SpriteBillboardParticle
 		at = @At("TAIL"))
 	private void releaseBubbles(CallbackInfo ci)
 	{
+		if (!Main.CONFIG.poppingBubbles()) { return; }
+
 		if (this.dead || maxAge == 0)
 		{
 			Particle bubble = MinecraftClient.getInstance().particleManager.addParticle(ParticleTypes.BUBBLE_POP, x, y, z, 0, 0, 0);

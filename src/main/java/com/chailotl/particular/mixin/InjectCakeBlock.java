@@ -1,5 +1,6 @@
 package com.chailotl.particular.mixin;
 
+import com.chailotl.particular.Main;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CakeBlock;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,6 +20,8 @@ public class InjectCakeBlock
 	@Inject(at = @At("TAIL"), method = "tryEat")
 	private static void makeSounds(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<ActionResult> cir)
 	{
+		if (!Main.CONFIG.cakeEatingParticles()) { return; }
+
 		ItemStack cake = Items.CAKE.getDefaultStack();
 		player.playSound(player.getEatSound(cake), 1f, 1f);
 		((InvokerLivingEntity) player).spawnParticles(cake, 5);

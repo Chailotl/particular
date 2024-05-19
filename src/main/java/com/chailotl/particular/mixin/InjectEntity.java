@@ -51,6 +51,8 @@ public abstract class InjectEntity
 	)
 	private void onSetVelocity(CallbackInfo ci)
 	{
+		if (!Main.CONFIG.waterSplash()) { return; }
+
 		velocities.offer(Math.abs(velocity.getY()));
 		if (velocities.size() > 4)
 		{
@@ -63,6 +65,8 @@ public abstract class InjectEntity
 		at = @At("TAIL"))
 	private void waterParticles(CallbackInfo ci)
 	{
+		if (!Main.CONFIG.waterSplash()) { return; }
+
 		//noinspection ConstantConditions
 		if ((Object) this instanceof ProjectileEntity || !getWorld().isClient) { return; }
 

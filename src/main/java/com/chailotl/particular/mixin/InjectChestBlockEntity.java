@@ -66,6 +66,8 @@ public class InjectChestBlockEntity extends BlockEntity
 		at = @At("TAIL"))
 	private static void randomlyOpen(World world, BlockPos pos, BlockState state, InjectChestBlockEntity blockEntity, CallbackInfo ci)
 	{
+		if (!Main.CONFIG.chestBubbles()) { return; }
+
 		if (!state.get(Properties.WATERLOGGED) ||
 			state.get(Properties.CHEST_TYPE) == ChestType.LEFT ||
 			!getSoulSand(world, pos, state) ||

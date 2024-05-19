@@ -21,6 +21,8 @@ public class InjectWaterFluid
 		at = @At("TAIL"))
 	private void waterParticles(World world, BlockPos pos, FluidState state, Random random, CallbackInfo ci)
 	{
+		if (!Main.CONFIG.waterfallSpray()) { return; }
+
 		if (!state.isStill() &&
 			world.getFluidState(pos.down()).isIn(FluidTags.WATER))
 		{
@@ -44,14 +46,14 @@ public class InjectWaterFluid
 						z += random.nextDouble();
 					}
 
-					world.addParticle(Main.WATERFALL_SPLASH, x, y, z, 0.0, 0.0, 0.0);
+					world.addParticle(Main.WATERFALL_SPRAY, x, y, z, 0.0, 0.0, 0.0);
 				}
 				else
 				{
 					double x = (double) pos.getX() + random.nextDouble();
 					double y = (double) pos.getY() + state.getHeight();
 					double z = (double) pos.getZ() + random.nextDouble();
-					world.addParticle(Main.WATERFALL_SPLASH, x, y, z, 0.0, 0.0, 0.0);
+					world.addParticle(Main.WATERFALL_SPRAY, x, y, z, 0.0, 0.0, 0.0);
 				}
 			}
 		}

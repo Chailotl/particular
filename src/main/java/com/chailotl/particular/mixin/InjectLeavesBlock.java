@@ -29,6 +29,8 @@ public class InjectLeavesBlock
 		at = @At("HEAD"))
 	private void dropLeaves(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci)
 	{
+		if (!Main.CONFIG.fallingLeaves()) { return; }
+
 		if (random.nextInt(60) == 0)
 		{
 			BlockPos blockPos = pos.down();

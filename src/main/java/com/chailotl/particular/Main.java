@@ -35,6 +35,7 @@ public class Main implements ClientModInitializer
 {
 	public static final String MOD_ID = "particular";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final com.chailotl.particular.ParticularConfig CONFIG = com.chailotl.particular.ParticularConfig.createAndLoad();
 
 	public static final DefaultParticleType OAK_LEAF = FabricParticleTypes.simple();
 	public static final DefaultParticleType BIRCH_LEAF = FabricParticleTypes.simple();
@@ -49,7 +50,7 @@ public class Main implements ClientModInitializer
 	public static final DefaultParticleType ENDER_BUBBLE_POP = FabricParticleTypes.simple();
 	public static final DefaultParticleType CAVE_DUST = FabricParticleTypes.simple();
 	public static final DefaultParticleType FIREFLY = FabricParticleTypes.simple();
-	public static final DefaultParticleType WATERFALL_SPLASH = FabricParticleTypes.simple();
+	public static final DefaultParticleType WATERFALL_SPRAY = FabricParticleTypes.simple();
 	public static final DefaultParticleType CASCADE = FabricParticleTypes.simple(true);
 	public static final DefaultParticleType WATER_SPLASH_EMITTER = FabricParticleTypes.simple(true);
 	public static final DefaultParticleType WATER_SPLASH = FabricParticleTypes.simple(true);
@@ -62,7 +63,7 @@ public class Main implements ClientModInitializer
 	@Override
 	public void onInitializeClient()
 	{
-		//LOGGER.info("Hello Fabric world!");
+		LOGGER.info("I am quite particular about the effects I choose to add :3");
 
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "oak_leaf"), OAK_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "birch_leaf"), BIRCH_LEAF);
@@ -77,7 +78,7 @@ public class Main implements ClientModInitializer
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "ender_bubble_pop"), ENDER_BUBBLE_POP);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "cave_dust"), CAVE_DUST);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "firefly"), FIREFLY);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "waterfall_splash"), WATERFALL_SPLASH);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "waterfall_spray"), WATERFALL_SPRAY);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "cascade"), CASCADE);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash_emitter"), WATER_SPLASH_EMITTER);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash"), WATER_SPLASH);
@@ -97,7 +98,7 @@ public class Main implements ClientModInitializer
 		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE_POP, EnderBubblePopParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(CAVE_DUST, CaveDustParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(FIREFLY, FireflyParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WATERFALL_SPLASH, WaterfallSplashParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(WATERFALL_SPRAY, WaterfallSplashParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(CASCADE, CascadeParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WATER_SPLASH_EMITTER, WaterSplashEmitterParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WATER_SPLASH, WaterSplashParticle.Factory::new);
@@ -105,12 +106,16 @@ public class Main implements ClientModInitializer
 		ParticleFactoryRegistry.getInstance().register(WATER_SPLASH_RING, WaterSplashRingParticle.Factory::new);
 
 		ClientChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
+			if (!Main.CONFIG.cascades()) { return; }
+
 			chunk.forEachBlockMatchingPredicate(state -> state.getFluidState().isOf(Fluids.WATER), (pos, state) -> {
 				updateCascade(world, pos, state.getFluidState());
 			});
 		});
 
 		ClientChunkEvents.CHUNK_UNLOAD.register((world, chunk) -> {
+			if (!Main.CONFIG.cascades()) { return; }
+
 			cascades.forEach((pos, strength) -> {
 				if (!world.isChunkLoaded(pos))
 				{
@@ -138,6 +143,8 @@ public class Main implements ClientModInitializer
 			}
 
 			// Cascades
+			if (!Main.CONFIG.cascades()) { return; }
+
 			Random random = world.random;
 
 			cascades.forEach((pos, strength) -> {

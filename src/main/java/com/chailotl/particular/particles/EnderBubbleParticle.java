@@ -24,6 +24,8 @@ public class EnderBubbleParticle extends BubbleColumnUpParticle
 	{
 		super.tick();
 
+		if (!Main.CONFIG.poppingBubbles()) { return; }
+
 		if (this.dead)
 		{
 			Particle bubble = MinecraftClient.getInstance().particleManager.addParticle(Main.ENDER_BUBBLE_POP, x, y, z, 0, 0, 0);

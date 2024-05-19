@@ -1,5 +1,6 @@
 package com.chailotl.particular.mixin;
 
+import com.chailotl.particular.Main;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.BubbleColumnUpParticle;
 import net.minecraft.client.particle.Particle;
@@ -24,6 +25,8 @@ public abstract class InjectBubbleColumnUpParticle extends SpriteBillboardPartic
 		at = @At("TAIL"))
 	private void releaseBubbles(CallbackInfo ci)
 	{
+		if (!Main.CONFIG.poppingBubbles()) { return; }
+
 		if (this.dead)
 		{
 			Particle bubble = MinecraftClient.getInstance().particleManager.addParticle(ParticleTypes.BUBBLE_POP, x, y, z, 0, 0, 0);

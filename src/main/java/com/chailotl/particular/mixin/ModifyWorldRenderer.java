@@ -25,6 +25,8 @@ public class ModifyWorldRenderer
 			target = "Lnet/minecraft/client/world/ClientWorld;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
 	private ParticleEffect modifyArg(ParticleEffect original, @Local FluidState fluidState)
 	{
+		if (!Main.CONFIG.rainRipples()) { return original; }
+
 		return fluidState.isIn(FluidTags.WATER) ? Main.WATER_RIPPLE : original;
 	}
 }

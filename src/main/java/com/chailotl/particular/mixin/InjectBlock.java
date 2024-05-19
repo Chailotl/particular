@@ -32,30 +32,38 @@ public class InjectBlock
 	{
 		Block block = state.getBlock();
 
-		// Fireflies
-		boolean isGrass = block == Blocks.GRASS || block == Blocks.TALL_GRASS;
-		if (isGrass ||
-			block instanceof FlowerBlock ||
-			block instanceof TallFlowerBlock)
+		if (Main.CONFIG.fireflies())
 		{
-			if (isGrass && random.nextInt(6) != 0)
+			// Fireflies
+			boolean isGrass = block == Blocks.GRASS || block == Blocks.TALL_GRASS;
+			if (isGrass ||
+				block instanceof FlowerBlock ||
+				block instanceof TallFlowerBlock)
 			{
+				if (isGrass && random.nextInt(6) != 0)
+				{
+					return;
+				}
+
+				Main.spawnFirefly(world, pos, random);
 				return;
 			}
-
-			Main.spawnFirefly(world, pos, random);
 		}
-		else if (block == Blocks.AIR || block == Blocks.CAVE_AIR)
+
+		if (Main.CONFIG.caveDust())
 		{
 			// Cave dust
-			if (random.nextInt(700) == 0 && pos.getY() < world.getSeaLevel() && isValidBiome(world.getBiome(pos)))
+			if (block == Blocks.AIR || block == Blocks.CAVE_AIR)
 			{
-				float lightChance = 1f - Math.min(8, world.getLightLevel(LightType.SKY, pos)) / 8f;
-				float depthChance = Math.min(1f, (world.getSeaLevel() - pos.getY()) / 96f);
-
-				if (random.nextFloat() < lightChance * depthChance)
+				if (random.nextInt(700) == 0 && pos.getY() < world.getSeaLevel() && isValidBiome(world.getBiome(pos)))
 				{
-					ParticleUtil.spawnParticle(world, pos, random, Main.CAVE_DUST);
+					float lightChance = 1f - Math.min(8, world.getLightLevel(LightType.SKY, pos)) / 8f;
+					float depthChance = Math.min(1f, (world.getSeaLevel() - pos.getY()) / 96f);
+
+					if (random.nextFloat() < lightChance * depthChance)
+					{
+						ParticleUtil.spawnParticle(world, pos, random, Main.CAVE_DUST);
+					}
 				}
 			}
 		}
