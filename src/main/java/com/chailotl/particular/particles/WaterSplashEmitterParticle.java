@@ -51,10 +51,10 @@ public class WaterSplashEmitterParticle extends NoRenderParticle
 	{
 		super.tick();
 
-		if (age == 9)
+		if (age == 8)
 		{
-			world.addParticle(Main.WATER_SPLASH, true, x, y, z, width * 0.66f, height * 1.75f, 0);
-			world.addParticle(Main.WATER_SPLASH_FOAM, true, x, y, z, width * 0.66f, height * 1.75f, 0);
+			world.addParticle(Main.WATER_SPLASH, true, x, y, z, width * 0.66f, height * 2f, 0);
+			world.addParticle(Main.WATER_SPLASH_FOAM, true, x, y, z, width * 0.66f, height * 2f, 0);
 			world.addParticle(Main.WATER_SPLASH_RING, true, x, y, z, width * 0.66f, 0, 0);
 			splash(width * 0.66f, (3f/8f + speed * 1/8f) + (width / 6f), 0.05f);
 		}

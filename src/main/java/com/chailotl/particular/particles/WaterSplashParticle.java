@@ -78,7 +78,7 @@ public class WaterSplashParticle extends SpriteBillboardParticle
 		float n = getMinV();
 		float o = getMaxV();
 		int light = getBrightness(tickDelta);
-		int color = colored ? ColorHelper.Argb.getArgb((int) (255 * 0.8f), this.color.getRed(), this.color.getGreen(), this.color.getBlue()) : Color.white.getRGB();
+		int color = colored ? this.color.getRGB() : Color.white.getRGB();
 		renderSide(vertexConsumer, vector3fs, 0, 1, height, l, m, n, o, light, color);
 		renderSide(vertexConsumer, vector3fs, 1, 2, height, l, m, n, o, light, color);
 		renderSide(vertexConsumer, vector3fs, 2, 3, height, l, m, n, o, light, color);
