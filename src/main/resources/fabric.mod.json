@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "particular",
 	"version": "${version}",
-	"name": "Particular",
+	"name": "${name}",
 	"description": "Enhances Minecraft's ambience with hand-crafted visual effects like fireflies, falling leaves, and waterfall cascades",
 	"authors": [
 		"Chai"

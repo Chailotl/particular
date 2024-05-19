@@ -36,9 +36,11 @@ dependencies {
 
 processResources {
 	inputs.property "version", project.version
+	inputs.property "name", project.mod_name
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": project.version,
+				"name": project.mod_name
 	}
 }
 
@@ -80,24 +82,22 @@ publishing {
 	}
 }
 
-if (project.gradle.startParameter.taskNames[0] == "publishMods") {
-	publishMods {
-		file = remapJar.archiveFile
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in))
-		System.out.println("Enter changelog:")
-		changelog = br.readLine()
-		type = STABLE
-		displayName = "Particular ${project.mod_version}"
-		modLoaders.add("fabric")
+publishMods {
+	File changelogFile = new File("CHANGELOG.md")
 
-		modrinth {
-			accessToken = providers.gradleProperty("modrinth_token").get()
-			projectId = "B1CcCd9h"
-			minecraftVersionRange {
-				start = "1.20"
-				end = "1.20.4"
-			}
-			requires("fabric-api")
+	file = remapJar.archiveFile
+	changelog = changelogFile.exists() ? changelogFile.text : ""
+	type = STABLE
+	displayName = "${project.mod_name} ${project.mod_version}"
+	modLoaders.add("fabric")
+
+	modrinth {
+		accessToken = providers.gradleProperty("modrinth_token").get()
+		projectId = "B1CcCd9h"
+		minecraftVersionRange {
+			start = "1.20"
+			end = "1.20.4"
 		}
+		requires("fabric-api")
 	}
 }
