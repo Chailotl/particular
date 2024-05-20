@@ -30,6 +30,6 @@
 		"InjectWaterBubbleParticle",
 		"InjectWaterFluid",
 		"InvokerLivingEntity",
-		"ModifyWorldRenderer"
+        	"InjectWorldRenderer"
 	]
 }
