@@ -28,8 +28,6 @@ public class InjectWorldRenderer
 					opcode = Opcodes.GETFIELD))
 	private void modifyParticleEffect(Camera camera, CallbackInfo ci, @Local FluidState fluidState, @Local LocalRef<ParticleEffect> particleEffect)
 	{
-		if (!Main.CONFIG.rainRipples()) { return; }
-
 		if (fluidState.isIn(FluidTags.WATER) && Main.CONFIG.rainRipples())
 		{
 			particleEffect.set(Main.WATER_RIPPLE);
