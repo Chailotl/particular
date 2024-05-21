@@ -9,7 +9,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeKeys;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,9 +21,9 @@ public class InjectBlock
 	@Unique
 	private static boolean isValidBiome(RegistryEntry<Biome> biome)
 	{
-		return !biome.matchesKey(BiomeKeys.LUSH_CAVES) &&
-			!biome.matchesKey(BiomeKeys.DRIPSTONE_CAVES) &&
-			!biome.matchesKey(BiomeKeys.DEEP_DARK);
+		var key = biome.getKey();
+		if (key.isEmpty()) { return true; }
+		return !Main.EXCLUDE_CAVE_DUST.contains(key.get().getValue());
 	}
 
 	@Inject(at = @At("TAIL"), method = "randomDisplayTick")

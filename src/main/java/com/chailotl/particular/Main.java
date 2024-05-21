@@ -2,6 +2,7 @@ package com.chailotl.particular;
 
 import com.chailotl.particular.mixin.AccessorBiome;
 import com.chailotl.particular.particles.*;
+import io.wispforest.owo.config.Option;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
@@ -34,12 +35,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main implements ClientModInitializer
 {
 	public static final String MOD_ID = "particular";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final com.chailotl.particular.ParticularConfig CONFIG = com.chailotl.particular.ParticularConfig.createAndLoad();
+
+	public static List<Identifier> EXCLUDE_CAVE_DUST = new LinkedList<>();
 
 	public static final DefaultParticleType OAK_LEAF = FabricParticleTypes.simple();
 	public static final DefaultParticleType BIRCH_LEAF = FabricParticleTypes.simple();
@@ -69,6 +75,10 @@ public class Main implements ClientModInitializer
 	public void onInitializeClient()
 	{
 		LOGGER.info("I am quite particular about the effects I choose to add :3");
+
+		CONFIG.optionForKey(new Option.Key("excludeCaveDust")).observe(x -> {
+			EXCLUDE_CAVE_DUST = CONFIG.excludeCaveDust().stream().map(Identifier::new).collect(Collectors.toList());
+		});
 
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "oak_leaf"), OAK_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "birch_leaf"), BIRCH_LEAF);
