@@ -10,7 +10,8 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
+import org.jetbrains.annotations.Nullable;
 
 public class EnderBubbleParticle extends BubbleColumnUpParticle
 {
@@ -37,7 +38,7 @@ public class EnderBubbleParticle extends BubbleColumnUpParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<SimpleParticleType>
 	{
 		private final SpriteProvider spriteProvider;
 
@@ -46,9 +47,11 @@ public class EnderBubbleParticle extends BubbleColumnUpParticle
 			this.spriteProvider = spriteProvider;
 		}
 
-		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i)
+		@Nullable
+		@Override
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
-			EnderBubbleParticle enderBubbleParticle = new EnderBubbleParticle(clientWorld, d, e, f, g, h, i);
+			EnderBubbleParticle enderBubbleParticle = new EnderBubbleParticle(world, x, y, z, velocityX, velocityY, velocityZ);
 			enderBubbleParticle.setSprite(this.spriteProvider);
 			return enderBubbleParticle;
 		}

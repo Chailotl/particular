@@ -4,7 +4,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
+import org.jetbrains.annotations.Nullable;
 
 public class CaveDustParticle extends AscendingParticle
 {
@@ -45,7 +46,7 @@ public class CaveDustParticle extends AscendingParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<SimpleParticleType>
 	{
 		private final SpriteProvider provider;
 
@@ -54,9 +55,11 @@ public class CaveDustParticle extends AscendingParticle
 			this.provider = provider;
 		}
 
-		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ)
+		@Nullable
+		@Override
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
-			return new CaveDustParticle(clientWorld, x, y, z, 0, 0, 0, 1.0F, provider);
+			return new CaveDustParticle(world, x, y, z, 0, 0, 0, 1.0F, provider);
 		}
 	}
 }

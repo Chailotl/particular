@@ -9,7 +9,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -26,7 +25,7 @@ public class InjectBarrelBlock
 	@Inject(
 		method = "onUse",
 		at = @At("HEAD"))
-	private void releaseBubbles(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
+	private void releaseBubbles(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
 	{
 		if (!Main.CONFIG.barrelBubbles()) { return; }
 

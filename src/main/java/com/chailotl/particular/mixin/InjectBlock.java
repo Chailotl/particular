@@ -22,9 +22,8 @@ public class InjectBlock
 	private static boolean isValidBiome(RegistryEntry<Biome> biome)
 	{
 		var key = biome.getKey();
-		if (key.isEmpty()) { return true; }
-		return !Main.EXCLUDE_CAVE_DUST.contains(key.get().getValue());
-	}
+        return key.map(biomeRegistryKey -> !Main.EXCLUDE_CAVE_DUST.contains(biomeRegistryKey.getValue())).orElse(true);
+    }
 
 	@Inject(at = @At("TAIL"), method = "randomDisplayTick")
 	public void spawnParticles(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci)
@@ -34,7 +33,7 @@ public class InjectBlock
 		if (Main.CONFIG.fireflies())
 		{
 			// Fireflies
-			boolean isGrass = block == Blocks.GRASS || block == Blocks.TALL_GRASS;
+			boolean isGrass = block == Blocks.GRASS_BLOCK || block == Blocks.TALL_GRASS;
 			if (isGrass ||
 				block instanceof FlowerBlock ||
 				block instanceof TallFlowerBlock)

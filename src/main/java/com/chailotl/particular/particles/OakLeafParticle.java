@@ -1,6 +1,5 @@
 package com.chailotl.particular.particles;
 
-import com.chailotl.particular.particles.LeafParticle;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 

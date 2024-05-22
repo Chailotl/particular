@@ -6,9 +6,10 @@ import net.minecraft.client.particle.*;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public class WaterSplashRingParticle extends SpriteBillboardParticle
@@ -71,7 +72,7 @@ public class WaterSplashRingParticle extends SpriteBillboardParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<SimpleParticleType>
 	{
 		private final SpriteProvider provider;
 
@@ -80,9 +81,11 @@ public class WaterSplashRingParticle extends SpriteBillboardParticle
 			this.provider = provider;
 		}
 
-		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double g, double h, double i)
+		@Nullable
+		@Override
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
-			return new WaterSplashRingParticle(clientWorld, x, y, z, (float) g, provider);
+			return new WaterSplashRingParticle(world, x, y, z, (float) velocityX, provider);
 		}
 	}
 }

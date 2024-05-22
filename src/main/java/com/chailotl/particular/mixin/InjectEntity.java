@@ -7,7 +7,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -94,6 +93,6 @@ public abstract class InjectEntity
 		//Vec3d vec3d = entity.getVelocity();
 
 		// 3D splash
-		getWorld().addParticle(Main.WATER_SPLASH_EMITTER, getX(), baseY + prevState.getHeight(), getZ(), dimensions.width, Collections.max(velocities), 0.0);
+		getWorld().addParticle(Main.WATER_SPLASH_EMITTER, getX(), baseY + prevState.getHeight(), getZ(), dimensions.width(), Collections.max(velocities), 0.0);
 	}
 }

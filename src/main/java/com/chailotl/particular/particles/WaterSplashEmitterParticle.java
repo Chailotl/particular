@@ -6,15 +6,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.render.*;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import org.joml.Vector3f;
+import net.minecraft.particle.SimpleParticleType;
+import org.jetbrains.annotations.Nullable;
 
 public class WaterSplashEmitterParticle extends NoRenderParticle
 {
@@ -80,13 +75,15 @@ public class WaterSplashEmitterParticle extends NoRenderParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<SimpleParticleType>
 	{
 		public Factory(SpriteProvider provider) { }
 
-		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double g, double h, double i)
+		@Nullable
+		@Override
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
-			return new WaterSplashEmitterParticle(clientWorld, x, y, z, (float) g, (float) h);
+			return new WaterSplashEmitterParticle(world, x, y, z, (float) velocityX, (float) velocityY);
 		}
 	}
 }

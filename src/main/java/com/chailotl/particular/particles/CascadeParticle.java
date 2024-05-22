@@ -4,9 +4,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import org.jetbrains.annotations.Nullable;
 
 public class CascadeParticle extends SpriteBillboardParticle
 {
@@ -51,7 +52,7 @@ public class CascadeParticle extends SpriteBillboardParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<SimpleParticleType>
 	{
 		private final SpriteProvider provider;
 
@@ -60,8 +61,9 @@ public class CascadeParticle extends SpriteBillboardParticle
 			this.provider = provider;
 		}
 
+		@Nullable
 		@Override
-		public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ)
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
 			return new CascadeParticle(world, x, y, z, provider);
 		}
