@@ -8,11 +8,12 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public class LeafParticle extends SpriteBillboardParticle
@@ -148,7 +149,7 @@ public class LeafParticle extends SpriteBillboardParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class DefaultFactory implements ParticleFactory<DefaultParticleType>
+	public static class DefaultFactory implements ParticleFactory<SimpleParticleType>
 	{
 		private final SpriteProvider provider;
 
@@ -157,10 +158,11 @@ public class LeafParticle extends SpriteBillboardParticle
 			this.provider = provider;
 		}
 
+		@Nullable
 		@Override
-		public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ)
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
-			return new LeafParticle(world, x, y, z, velX, velY, velZ, provider);
+			return new LeafParticle(world, x, y, z, velocityX, velocityY, velocityZ, provider);
 		}
 	}
 }

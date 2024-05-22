@@ -4,7 +4,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
+import org.jetbrains.annotations.Nullable;
 
 public class EnderBubblePopParticle extends BubblePopParticle
 {
@@ -14,7 +15,7 @@ public class EnderBubblePopParticle extends BubblePopParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<SimpleParticleType>
 	{
 		private final SpriteProvider spriteProvider;
 
@@ -23,9 +24,11 @@ public class EnderBubblePopParticle extends BubblePopParticle
 			this.spriteProvider = spriteProvider;
 		}
 
-		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i)
+		@Nullable
+		@Override
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
-			return new EnderBubblePopParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+			return new EnderBubblePopParticle(world, x, y, z, velocityX, velocityY, velocityZ, this.spriteProvider);
 		}
 	}
 }

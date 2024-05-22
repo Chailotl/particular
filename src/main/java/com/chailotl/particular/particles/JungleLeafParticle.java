@@ -6,7 +6,8 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
+import org.jetbrains.annotations.Nullable;
 
 public class JungleLeafParticle extends LeafParticle
 {
@@ -19,7 +20,7 @@ public class JungleLeafParticle extends LeafParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<SimpleParticleType>
 	{
 		private final SpriteProvider provider;
 
@@ -28,10 +29,11 @@ public class JungleLeafParticle extends LeafParticle
 			this.provider = provider;
 		}
 
+		@Nullable
 		@Override
-		public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ)
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
-			return new JungleLeafParticle(world, x, y, z, velX, velY, velZ, provider);
+			return new JungleLeafParticle(world, x, y, z, velocityX, velocityY, velocityZ, provider);
 		}
 	}
 }

@@ -8,9 +8,10 @@ import net.minecraft.client.particle.RainSplashParticle;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.Nullable;
 
 public class WaterfallSplashParticle extends RainSplashParticle
 {
@@ -66,7 +67,7 @@ public class WaterfallSplashParticle extends RainSplashParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<SimpleParticleType>
 	{
 		private final SpriteProvider spriteProvider;
 
@@ -75,9 +76,11 @@ public class WaterfallSplashParticle extends RainSplashParticle
 			this.spriteProvider = spriteProvider;
 		}
 
-		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i)
+		@Nullable
+		@Override
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
-			WaterfallSplashParticle waterfallSplashParticle = new WaterfallSplashParticle(clientWorld, d, e, f);
+			WaterfallSplashParticle waterfallSplashParticle = new WaterfallSplashParticle(world, x, y, z);
 			waterfallSplashParticle.setSprite(this.spriteProvider);
 			return waterfallSplashParticle;
 		}

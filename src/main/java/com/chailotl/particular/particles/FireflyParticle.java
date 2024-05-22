@@ -1,17 +1,13 @@
 package com.chailotl.particular.particles;
 
-import com.chailotl.particular.mixin.AccessorChestBlockEntity;
 import com.chailotl.particular.mixin.AccessorParticle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.Box;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
-import org.spongepowered.asm.mixin.Unique;
+import org.jetbrains.annotations.Nullable;
 
 public class FireflyParticle extends SpriteBillboardParticle
 {
@@ -67,7 +63,7 @@ public class FireflyParticle extends SpriteBillboardParticle
 
 		if (onGround)
 		{
-			((AccessorParticle) this).setField_21507(false);
+			((AccessorParticle) this).setStopped(false);
 			ageOffset += 5;
 		}
 
@@ -115,7 +111,7 @@ public class FireflyParticle extends SpriteBillboardParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<SimpleParticleType>
 	{
 		private final SpriteProvider provider;
 
@@ -124,8 +120,9 @@ public class FireflyParticle extends SpriteBillboardParticle
 			this.provider = provider;
 		}
 
+		@Nullable
 		@Override
-		public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ)
+		public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 		{
 			return new FireflyParticle(world, x, y, z, provider);
 		}
