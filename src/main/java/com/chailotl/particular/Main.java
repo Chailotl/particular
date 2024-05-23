@@ -7,17 +7,14 @@ import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
-import net.fabricmc.fabric.api.client.networking.v1.C2SPlayChannelEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.particle.DefaultParticleType;
@@ -112,7 +109,7 @@ public class Main implements ClientModInitializer
 		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE_POP, EnderBubblePopParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(CAVE_DUST, CaveDustParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(FIREFLY, FireflyParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WATERFALL_SPRAY, WaterfallSplashParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(WATERFALL_SPRAY, WaterfallSprayParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(CASCADE, CascadeParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WATER_SPLASH_EMITTER, WaterSplashEmitterParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WATER_SPLASH, WaterSplashParticle.Factory::new);
@@ -208,13 +205,22 @@ public class Main implements ClientModInitializer
 			world.getFluidState(pos.down()).isOf(Fluids.WATER))
 		{
 			int strength = 0;
-			if (world.getFluidState(pos.north()).isIn(FluidTags.WATER)) { ++strength; }
-			if (world.getFluidState(pos.east()).isIn(FluidTags.WATER)) { ++strength; }
-			if (world.getFluidState(pos.south()).isIn(FluidTags.WATER)) { ++strength; }
-			if (world.getFluidState(pos.west()).isIn(FluidTags.WATER)) { ++strength; }
+			if (world.getFluidState(pos.north()).isOf(Fluids.WATER)) { ++strength; }
+			if (world.getFluidState(pos.east()).isOf(Fluids.WATER)) { ++strength; }
+			if (world.getFluidState(pos.south()).isOf(Fluids.WATER)) { ++strength; }
+			if (world.getFluidState(pos.west()).isOf(Fluids.WATER)) { ++strength; }
 
 			if (strength > 0)
 			{
+				// Check if encased
+				if (!world.getBlockState(pos.up().north()).isAir() &&
+					!world.getBlockState(pos.up().east()).isAir() &&
+					!world.getBlockState(pos.up().south()).isAir() &&
+					!world.getBlockState(pos.up().west()).isAir())
+				{
+					return;
+				}
+
 				// This wouldn't be needed in Rust
 				pos = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
 
