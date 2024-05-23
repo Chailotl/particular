@@ -22,6 +22,7 @@ public class ConfigModel
 		"minecraft:deep_dark"
 	);
 	public boolean chestBubbles = true;
+	public boolean soulSandBubbles = true;
 	public boolean barrelBubbles = true;
 	public boolean poppingBubbles = true;
 	public boolean rainRipples = true;
