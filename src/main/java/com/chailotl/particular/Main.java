@@ -76,9 +76,8 @@ public class Main implements ClientModInitializer
 	{
 		LOGGER.info("I am quite particular about the effects I choose to add :3");
 
-		CONFIG.optionForKey(new Option.Key("excludeCaveDust")).observe(x -> {
-			EXCLUDE_CAVE_DUST = CONFIG.excludeCaveDust().stream().map(Identifier::new).collect(Collectors.toList());
-		});
+		updateCaveDust(0);
+		CONFIG.optionForKey(new Option.Key("excludeCaveDust")).observe(this::updateCaveDust);
 
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "oak_leaf"), OAK_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "birch_leaf"), BIRCH_LEAF);
@@ -195,6 +194,11 @@ public class Main implements ClientModInitializer
 				}
 			});
 		});
+	}
+
+	public void updateCaveDust(Object o)
+	{
+		EXCLUDE_CAVE_DUST = CONFIG.excludeCaveDust().stream().map(Identifier::new).collect(Collectors.toList());
 	}
 
 	public static void updateCascade(World world, BlockPos pos, FluidState state)
