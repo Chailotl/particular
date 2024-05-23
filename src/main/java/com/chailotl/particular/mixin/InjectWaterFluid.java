@@ -6,6 +6,7 @@ import net.minecraft.fluid.WaterFluid;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -51,9 +52,10 @@ public class InjectWaterFluid
 				else
 				{
 					double x = (double) pos.getX() + random.nextDouble();
-					double y = (double) pos.getY() + state.getHeight();
+					double y = (double) pos.getY() + (random.nextDouble() * state.getHeight());
 					double z = (double) pos.getZ() + random.nextDouble();
-					world.addParticle(Main.WATERFALL_SPRAY, x, y, z, 0.0, 0.0, 0.0);
+					Vec3d vel = state.getVelocity(world, pos).multiply(0.075);
+					world.addParticle(Main.WATERFALL_SPRAY, x, y, z, vel.x, 0.0, vel.z);
 				}
 			}
 		}
