@@ -2,6 +2,7 @@ package com.chailotl.particular.particles;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.RainSplashParticle;
@@ -12,11 +13,22 @@ import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
-public class WaterfallSplashParticle extends RainSplashParticle
+import java.awt.*;
+
+public class WaterfallSprayParticle extends RainSplashParticle
 {
-	protected WaterfallSplashParticle(ClientWorld clientWorld, double d, double e, double f)
+	protected WaterfallSprayParticle(ClientWorld clientWorld, double d, double e, double f, double g, double h, double i)
 	{
 		super(clientWorld, d, e, f);
+
+		velocityX += g;
+		velocityY *= 0.75f;
+		velocityZ += i;
+
+		Color color = new Color(BiomeColors.getWaterColor(clientWorld, BlockPos.ofFloored(x, y, z)));
+		red = color.getRed() / 255f;
+		green = color.getGreen() / 255f;
+		blue = color.getBlue() / 255f;
 	}
 
 	@Override
@@ -77,9 +89,9 @@ public class WaterfallSplashParticle extends RainSplashParticle
 
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i)
 		{
-			WaterfallSplashParticle waterfallSplashParticle = new WaterfallSplashParticle(clientWorld, d, e, f);
-			waterfallSplashParticle.setSprite(this.spriteProvider);
-			return waterfallSplashParticle;
+			WaterfallSprayParticle waterfallSprayParticle = new WaterfallSprayParticle(clientWorld, d, e, f, g, h, i);
+			waterfallSprayParticle.setSprite(this.spriteProvider);
+			return waterfallSprayParticle;
 		}
 	}
 }
