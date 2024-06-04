@@ -16,11 +16,6 @@ public class ConfigModel
 	public boolean fireflies = true;
 	public boolean fallingLeaves = true;
 	public boolean caveDust = true;
-	public List<String> excludeCaveDust = Arrays.asList(
-		"minecraft:lush_caves",
-		"minecraft:dripstone_caves",
-		"minecraft:deep_dark"
-	);
 	public boolean chestBubbles = true;
 	public boolean soulSandBubbles = true;
 	public boolean barrelBubbles = true;
@@ -52,4 +47,9 @@ public class ConfigModel
 		public float flowers = 1f;
 		public float tallFlowers = 0.5f;
 	}
+	public List<String> excludeCaveDust = Arrays.asList(
+		"minecraft:lush_caves",
+		"minecraft:dripstone_caves",
+		"minecraft:deep_dark"
+	);
 }
