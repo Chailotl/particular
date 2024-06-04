@@ -1,5 +1,10 @@
 {
 	"text.config.particular.title": "Particular Config",
+
+	"text.config.particular.section.enabledEffects": "Enabled Effects",
+	"text.config.particular.section.advancedSettings": "Advanced Settings",
+	"text.config.particular.section.frequencyModifiers": "Frequency Modifiers",
+
 	"text.config.particular.option.waterSplash": "Water Splashes",
 	"text.config.particular.option.cascades": "Cascades",
 	"text.config.particular.option.waterfallSpray": "Waterfall Spray",
@@ -14,5 +19,17 @@
 	"text.config.particular.option.rainRipples": "Rain Ripples",
 	"text.config.particular.option.waterDripRipples": "Water Drip Ripples",
 	"text.config.particular.option.cakeEatingParticles": "Cake Eating Particles",
-	"text.config.particular.option.emissiveLavaDrips": "Emissive Lava Drips"
+	"text.config.particular.option.emissiveLavaDrips": "Emissive Lava Drips",
+
+	"text.config.particular.category.fireflySettings": "Firefly Settings",
+	"text.config.particular.option.fireflySettings.startTime": "Start Time",
+	"text.config.particular.option.fireflySettings.endTime": "End Time",
+	"text.config.particular.option.fireflySettings.canSpawnInRain": "Can Spawn in Rain",
+	"text.config.particular.option.fireflySettings.minTemp": "Minimum Temperature",
+	"text.config.particular.option.fireflySettings.maxTemp": "Maximum Temperature",
+	"text.config.particular.option.fireflySettings.dailyRandom": "Daily Random",
+	"text.config.particular.option.fireflySettings.grass": "Grass",
+	"text.config.particular.option.fireflySettings.tallGrass": "Tall Grass",
+	"text.config.particular.option.fireflySettings.flowers": "Flowers",
+	"text.config.particular.option.fireflySettings.tallFlowers": "Tall Flowers"
 }

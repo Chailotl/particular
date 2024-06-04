@@ -151,14 +151,9 @@ public class Main implements ClientModInitializer
 			Random random = world.random;
 
 			// Set firefly frequency
-			if (world.getTimeOfDay() == 12000)
+			if (world.getTimeOfDay() == CONFIG.fireflySettings.startTime())
 			{
-				fireflyFrequency = switch(random.nextBetween(0, 5)) {
-					default -> 0f;
-					case 3 -> 0.33f;
-					case 4 -> 0.66f;
-					case 5 -> 1f;
-				};
+				fireflyFrequency = CONFIG.fireflySettings.dailyRandom().get(random.nextInt(CONFIG.fireflySettings.dailyRandom().size()));
 
 				//LOGGER.info(fireflyFrequency + "");
 			}
@@ -262,11 +257,15 @@ public class Main implements ClientModInitializer
 
 		Biome biome = world.getBiome(pos).value();
 		float downfall = ((AccessorBiome)(Object) biome).getWeather().downfall();
-		if (!world.isRaining() && random.nextInt(30 - (int)(10 * downfall)) == 0)
+		if ((!world.isRaining() || CONFIG.fireflySettings.canSpawnInRain()) &&
+			random.nextInt(30 - (int)(10 * downfall)) == 0)
 		{
 			long time = world.getTimeOfDay();
 			float temp = biome.getTemperature();
-			if (time >= 12000 && time <= 23000 && temp >= 0.5 && temp < 1)
+			if (time >= CONFIG.fireflySettings.startTime() &&
+				time <= CONFIG.fireflySettings.endTime() &&
+				temp >= CONFIG.fireflySettings.minTemp() &&
+				temp <= CONFIG.fireflySettings.maxTemp())
 			{
 				world.addParticle(Main.FIREFLY, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, 0, 0, 0);
 			}

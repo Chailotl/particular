@@ -34,16 +34,12 @@ public class InjectBlock
 		if (Main.CONFIG.fireflies())
 		{
 			// Fireflies
-			boolean isGrass = block == Blocks.GRASS || block == Blocks.TALL_GRASS;
-			if (isGrass ||
-				block instanceof FlowerBlock ||
-				block instanceof TallFlowerBlock)
+			double val = random.nextDouble();
+			if ((block == Blocks.GRASS && val < Main.CONFIG.fireflySettings.grass()) ||
+				(block == Blocks.TALL_GRASS && val < Main.CONFIG.fireflySettings.tallGrass()) ||
+				(block instanceof FlowerBlock && val < Main.CONFIG.fireflySettings.flowers()) ||
+				(block instanceof TallFlowerBlock && val < Main.CONFIG.fireflySettings.tallFlowers()))
 			{
-				if (isGrass && random.nextInt(6) != 0)
-				{
-					return;
-				}
-
 				Main.spawnFirefly(world, pos, random);
 				return;
 			}
