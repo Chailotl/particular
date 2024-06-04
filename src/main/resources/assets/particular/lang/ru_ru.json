@@ -1,0 +1,35 @@
+{
+  "text.config.particular.title": "Particular Config",
+
+  "text.config.particular.section.enabledEffects": "Включенные эффекты",
+  "text.config.particular.section.advancedSettings": "Продвинутые настройки",
+  "text.config.particular.section.frequencyModifiers": "Модификаторы частоты появления",
+
+  "text.config.particular.option.waterSplash": "Брызги от воды",
+  "text.config.particular.option.cascades": "Водопады",
+  "text.config.particular.option.waterfallSpray": "Брызги от водопада",
+  "text.config.particular.option.fireflies": "Светлячки",
+  "text.config.particular.option.fallingLeaves": "Падающие листья",
+  "text.config.particular.option.caveDust": "Пещерная пыль",
+  "text.config.particular.option.excludeCaveDust": "Биомы-исключения для появления пещерной пыли",
+  "text.config.particular.option.chestBubbles": "Пузырьки из сундуков",
+  "text.config.particular.option.soulSandBubbles": "Пузырьки из песка душ",
+  "text.config.particular.option.barrelBubbles": "Пузырьки из бочек",
+  "text.config.particular.option.poppingBubbles": "Пузырьки лопаются",
+  "text.config.particular.option.rainRipples": "Рябь от дождя",
+  "text.config.particular.option.waterDripRipples": "Рябь от стекающих капель воды",
+  "text.config.particular.option.cakeEatingParticles": "Частицы поедания торта",
+  "text.config.particular.option.emissiveLavaDrips": "Стекающие капли лавы светятся",
+
+  "text.config.particular.category.fireflySettings": "Настройки светлячков",
+  "text.config.particular.option.fireflySettings.startTime": "Время начала",
+  "text.config.particular.option.fireflySettings.endTime": "Время конца",
+  "text.config.particular.option.fireflySettings.canSpawnInRain": "Могут появляться под дождём",
+  "text.config.particular.option.fireflySettings.minTemp": "Минимальная температура",
+  "text.config.particular.option.fireflySettings.maxTemp": "Максимальная температура",
+  "text.config.particular.option.fireflySettings.dailyRandom": "Случайное значение из списка каждый день",
+  "text.config.particular.option.fireflySettings.grass": "Появление из травы",
+  "text.config.particular.option.fireflySettings.tallGrass": "Появление из высокой травы",
+  "text.config.particular.option.fireflySettings.flowers": "Появление из цветов",
+  "text.config.particular.option.fireflySettings.tallFlowers": "Появление из высоких цветов"
+}
