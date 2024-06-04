@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class Main implements ClientModInitializer
@@ -65,7 +66,7 @@ public class Main implements ClientModInitializer
 	public static final DefaultParticleType WATER_SPLASH_RING = FabricParticleTypes.simple(true);
 
 	public static Identifier currentDimension;
-	public static Hashtable<BlockPos, Integer> cascades = new Hashtable<>();
+	public static ConcurrentHashMap<BlockPos, Integer> cascades = new ConcurrentHashMap<>();
 	private static float fireflyFrequency = 1f;
 
 	@Override
@@ -136,7 +137,7 @@ public class Main implements ClientModInitializer
 			if (!Main.CONFIG.cascades()) { return; }
 
 			cascades.forEach((pos, strength) -> {
-				if (!world.isChunkLoaded(pos))
+				if (world.getChunk(pos).getPos().equals(chunk.getPos()))
 				{
 					cascades.remove(pos);
 				}
