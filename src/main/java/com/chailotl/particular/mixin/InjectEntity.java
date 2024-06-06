@@ -4,6 +4,7 @@ import com.chailotl.particular.Main;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -68,7 +69,7 @@ public abstract class InjectEntity
 		if (!Main.CONFIG.waterSplash()) { return; }
 
 		//noinspection ConstantConditions
-		if ((Object) this instanceof ProjectileEntity || !getWorld().isClient) { return; }
+		if ((Object) this instanceof ArrowEntity || !getWorld().isClient) { return; }
 
 		// Find water height
 		float baseY = MathHelper.floor(getY());
