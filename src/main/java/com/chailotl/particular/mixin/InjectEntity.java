@@ -30,9 +30,7 @@ public abstract class InjectEntity
 {
 	@Shadow private Vec3d velocity;
 	@Shadow private EntityDimensions dimensions;
-	@Shadow public abstract boolean hasPassengers();
 	@Shadow @Final protected Random random;
-	@Shadow @Nullable public abstract LivingEntity getControllingPassenger();
 	@Shadow public abstract double getX();
 	@Shadow public abstract double getY();
 	@Shadow public abstract double getZ();
@@ -88,9 +86,6 @@ public abstract class InjectEntity
 		}
 
 		if (!foundSurface) { return; }
-
-		//Entity entity = hasPassengers() && getControllingPassenger() != null ? getControllingPassenger() : (Entity)(Object)this;
-		//Vec3d vec3d = entity.getVelocity();
 
 		// 3D splash
 		getWorld().addParticle(Main.WATER_SPLASH_EMITTER, getX(), baseY + prevState.getHeight(), getZ(), dimensions.width, Collections.max(velocities), 0.0);
