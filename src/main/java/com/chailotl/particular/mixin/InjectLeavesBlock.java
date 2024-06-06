@@ -41,14 +41,10 @@ public class InjectLeavesBlock
 				double y = pos.getY() - 0.05d;
 				double z = pos.getZ() + 0.02d + random.nextDouble() * 0.96d;
 
-				ParticleEffect particle = null;
+				ParticleEffect particle = Main.OAK_LEAF;
 				Color color = new Color(BiomeColors.getFoliageColor(world, pos));
 
 				Block block = state.getBlock();
-				if (block == Blocks.OAK_LEAVES)
-				{
-					particle = Main.OAK_LEAF;
-				}
 				if (block == Blocks.BIRCH_LEAVES)
 				{
 					particle = Main.BIRCH_LEAF;
@@ -79,12 +75,6 @@ public class InjectLeavesBlock
 				else if (block == Blocks.MANGROVE_LEAVES)
 				{
 					particle = Main.MANGROVE_LEAF;
-					//color = new Color(FoliageColors.getMangroveColor());
-				}
-
-				if (particle == null)
-				{
-					return;
 				}
 
 				Particle leaf = MinecraftClient.getInstance().particleManager.addParticle(particle, x, y, z, 0, 0, 0);
