@@ -2,7 +2,6 @@ package com.chailotl.particular;
 
 import com.chailotl.particular.mixin.AccessorBiome;
 import com.chailotl.particular.particles.*;
-import io.wispforest.owo.config.Option;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
@@ -11,7 +10,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.Particle;
@@ -21,7 +19,6 @@ import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -31,19 +28,13 @@ import net.minecraft.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 public class Main implements ClientModInitializer
 {
 	public static final String MOD_ID = "particular";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final com.chailotl.particular.ParticularConfig CONFIG = com.chailotl.particular.ParticularConfig.createAndLoad();
-
-	public static List<Identifier> EXCLUDE_CAVE_DUST = new LinkedList<>();
 
 	public static final DefaultParticleType OAK_LEAF = FabricParticleTypes.simple();
 	public static final DefaultParticleType BIRCH_LEAF = FabricParticleTypes.simple();
@@ -73,9 +64,6 @@ public class Main implements ClientModInitializer
 	public void onInitializeClient()
 	{
 		LOGGER.info("I am quite particular about the effects I choose to add :3");
-
-		updateCaveDust(0);
-		CONFIG.optionForKey(new Option.Key("excludeCaveDust")).observe(this::updateCaveDust);
 
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "oak_leaf"), OAK_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "birch_leaf"), BIRCH_LEAF);
@@ -187,11 +175,6 @@ public class Main implements ClientModInitializer
 				}
 			});
 		});
-	}
-
-	public void updateCaveDust(Object o)
-	{
-		EXCLUDE_CAVE_DUST = CONFIG.excludeCaveDust().stream().map(Identifier::new).collect(Collectors.toList());
 	}
 
 	public static void updateCascade(World world, BlockPos pos, FluidState state)

@@ -1,11 +1,13 @@
 package com.chailotl.particular;
 
+import com.chailotl.sushi_bar.owo.config.SushiModmenu;
 import io.wispforest.owo.config.annotation.*;
+import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Modmenu(modId = Main.MOD_ID)
+@SushiModmenu(modId = Main.MOD_ID)
 @Config(name = Main.MOD_ID, wrapperName = "ParticularConfig")
 public class ConfigModel
 {
@@ -29,6 +31,12 @@ public class ConfigModel
 	@Nest
 	public FireflySettings fireflySettings = new FireflySettings();
 
+	public List<Identifier> excludeCaveDust = Arrays.asList(
+		new Identifier("minecraft:lush_caves"),
+		new Identifier("minecraft:dripstone_caves"),
+		new Identifier("minecraft:deep_dark")
+	);
+
 	public static class FireflySettings
 	{
 		@RangeConstraint(min = 0, max = 23999)
@@ -47,9 +55,4 @@ public class ConfigModel
 		public float flowers = 1f;
 		public float tallFlowers = 0.5f;
 	}
-	public List<String> excludeCaveDust = Arrays.asList(
-		"minecraft:lush_caves",
-		"minecraft:dripstone_caves",
-		"minecraft:deep_dark"
-	);
 }

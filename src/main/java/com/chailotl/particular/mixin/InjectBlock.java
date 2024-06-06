@@ -23,7 +23,7 @@ public class InjectBlock
 	{
 		var key = biome.getKey();
 		if (key.isEmpty()) { return true; }
-		return !Main.EXCLUDE_CAVE_DUST.contains(key.get().getValue());
+		return !Main.CONFIG.excludeCaveDust().contains(key.get().getValue());
 	}
 
 	@Inject(at = @At("TAIL"), method = "randomDisplayTick")
