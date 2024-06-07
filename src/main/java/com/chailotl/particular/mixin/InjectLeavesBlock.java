@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
-import java.util.Map;
 
 @Mixin(LeavesBlock.class)
 public class InjectLeavesBlock
@@ -39,7 +38,7 @@ public class InjectLeavesBlock
 				double y = pos.getY() - 0.05d;
 				double z = pos.getZ() + 0.02d + random.nextDouble() * 0.96d;
 
-				Main.LeafData leafData = Main.leafData.getOrDefault(state.getBlock(), new Main.LeafData(Main.OAK_LEAF));
+				Main.LeafData leafData = Main.getLeafData(state.getBlock());
 
 				ParticleEffect particle = leafData.getParticle();
 				if (particle == null) { return; }

@@ -130,12 +130,6 @@ public class LeafParticle extends SpriteBillboardParticle
 	@Override
 	public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float tickDelta)
 	{
-		/*if (!expiring || !Main.CONFIG.fallingLeavesSettings.layFlatOnGround())
-		{
-			super.buildGeometry(vertexConsumer, camera, tickDelta);
-			return;
-		}*/
-
 		Vec3d vec3d = camera.getPos();
 		float f = (float)(MathHelper.lerp(tickDelta, prevPosX, x) - vec3d.getX());
 		float g = (float)(MathHelper.lerp(tickDelta, prevPosY, y) - vec3d.getY());

@@ -1,5 +1,6 @@
 package com.chailotl.particular;
 
+import com.chailotl.particular.compat.Traverse;
 import com.chailotl.particular.mixin.AccessorBiome;
 import com.chailotl.particular.particles.*;
 import com.chailotl.particular.particles.leaves.BigLeafParticle;
@@ -17,6 +18,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -42,6 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
@@ -60,6 +63,8 @@ public class Main implements ClientModInitializer
 	public static final DefaultParticleType DARK_OAK_LEAF = FabricParticleTypes.simple();
 	public static final DefaultParticleType AZALEA_LEAF = FabricParticleTypes.simple();
 	public static final DefaultParticleType MANGROVE_LEAF = FabricParticleTypes.simple();
+	public static final DefaultParticleType WHITE_OAK_LEAF = FabricParticleTypes.simple();
+	public static final DefaultParticleType WHITE_SPRUCE_LEAF = FabricParticleTypes.simple();
 	public static final DefaultParticleType WATER_RIPPLE = FabricParticleTypes.simple();
 	public static final DefaultParticleType ENDER_BUBBLE = FabricParticleTypes.simple();
 	public static final DefaultParticleType ENDER_BUBBLE_POP = FabricParticleTypes.simple();
@@ -76,7 +81,7 @@ public class Main implements ClientModInitializer
 	public static ConcurrentHashMap<BlockPos, Integer> cascades = new ConcurrentHashMap<>();
 	private static float fireflyFrequency = 1f;
 
-	public static final Map<Block, LeafData> leafData = Map.of(
+	private static Map<Block, LeafData> leavesData = new HashMap<>(Map.of(
 		Blocks.OAK_LEAVES, new LeafData(OAK_LEAF),
 		Blocks.BIRCH_LEAVES, new LeafData(BIRCH_LEAF, new Color(FoliageColors.getBirchColor())),
 		Blocks.SPRUCE_LEAVES, new LeafData(SPRUCE_LEAF, new Color(FoliageColors.getSpruceColor())),
@@ -87,7 +92,7 @@ public class Main implements ClientModInitializer
 		Blocks.FLOWERING_AZALEA_LEAVES, new LeafData(AZALEA_LEAF, Color.white),
 		Blocks.MANGROVE_LEAVES, new LeafData(MANGROVE_LEAF),
 		Blocks.CHERRY_LEAVES, new LeafData(null)
-	);
+	));
 
 	public static class LeafData
 	{
@@ -126,6 +131,11 @@ public class Main implements ClientModInitializer
 	{
 		LOGGER.info("I am quite particular about the effects I choose to add :3");
 
+		if (FabricLoader.getInstance().isModLoaded("traverse"))
+		{
+			Traverse.addLeaves();
+		}
+
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "oak_leaf"), OAK_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "birch_leaf"), BIRCH_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "spruce_leaf"), SPRUCE_LEAF);
@@ -134,6 +144,8 @@ public class Main implements ClientModInitializer
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "dark_oak_leaf"), DARK_OAK_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "azalea_leaf"), AZALEA_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "mangrove_leaf"), MANGROVE_LEAF);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "white_oak_leaf"), WHITE_OAK_LEAF);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "white_spruce_leaf"), WHITE_SPRUCE_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_ripple"), WATER_RIPPLE);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "ender_bubble"), ENDER_BUBBLE);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "ender_bubble_pop"), ENDER_BUBBLE_POP);
@@ -154,6 +166,8 @@ public class Main implements ClientModInitializer
 		ParticleFactoryRegistry.getInstance().register(DARK_OAK_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(AZALEA_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(MANGROVE_LEAF, BigLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(WHITE_OAK_LEAF, LeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(WHITE_SPRUCE_LEAF, ConiferLeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WATER_RIPPLE, WaterRippleParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE, EnderBubbleParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE_POP, BubblePopParticle.Factory::new);
@@ -236,6 +250,16 @@ public class Main implements ClientModInitializer
 				}
 			});
 		});
+	}
+
+	public static void registerLeaves(Block block, LeafData leafData)
+	{
+		leavesData.put(block, leafData);
+	}
+
+	public static LeafData getLeafData(Block block)
+	{
+		return leavesData.getOrDefault(block, new Main.LeafData(Main.OAK_LEAF));
 	}
 
 	public static void updateCascade(World world, BlockPos pos, FluidState state)
