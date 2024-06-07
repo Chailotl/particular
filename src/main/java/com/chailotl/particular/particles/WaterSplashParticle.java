@@ -9,6 +9,7 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
@@ -51,6 +52,11 @@ public class WaterSplashParticle extends SpriteBillboardParticle
 		super.tick();
 
 		setSpriteForAge(provider);
+
+		if (!world.getFluidState(BlockPos.ofFloored(x, y, z)).isIn(FluidTags.WATER))
+		{
+			this.markDead();
+		}
 	}
 
 	@Override

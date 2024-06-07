@@ -11,7 +11,9 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
@@ -57,6 +59,11 @@ public class WaterSplashEmitterParticle extends NoRenderParticle
 			world.addParticle(Main.WATER_SPLASH_FOAM, true, x, y, z, width * 0.66f, height * 2f, 0);
 			world.addParticle(Main.WATER_SPLASH_RING, true, x, y, z, width * 0.66f, 0, 0);
 			splash(width * 0.66f, (3f/8f + speed * 1/8f) + (width / 6f), 0.05f);
+		}
+
+		if (!world.getFluidState(BlockPos.ofFloored(x, y, z)).isIn(FluidTags.WATER))
+		{
+			this.markDead();
 		}
 	}
 
