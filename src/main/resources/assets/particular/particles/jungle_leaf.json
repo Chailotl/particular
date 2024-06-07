@@ -2,9 +2,6 @@
 	"textures": [
 		"particular:jungle_leaf_1",
 		"particular:jungle_leaf_2",
-		"particular:jungle_leaf_3",
-		"particular:jungle_leaf_4",
-		"particular:jungle_leaf_5",
-		"particular:jungle_leaf_6"
+		"particular:jungle_leaf_3"
 	]
 }

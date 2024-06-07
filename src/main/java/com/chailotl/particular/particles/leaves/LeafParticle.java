@@ -13,6 +13,7 @@ import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class LeafParticle extends SpriteBillboardParticle
@@ -21,6 +22,7 @@ public class LeafParticle extends SpriteBillboardParticle
 	protected final float rotateFactor;
 	protected float gravityFactor = 0.075f;
 	protected float angleFactor = 0f;
+	protected final boolean flipped;
 	protected boolean expiring = false;
 
 	protected LeafParticle(ClientWorld world, double x, double y, double z, double r, double g, double b, SpriteProvider provider)
@@ -41,6 +43,7 @@ public class LeafParticle extends SpriteBillboardParticle
 		green = (float) g;
 		blue = (float) b;
 		rotateFactor = 4f + ((float) Math.random() * 3f);
+		flipped = Math.random() > 0.5;
 
 		scale = 5f / 32f;
 	}
@@ -127,26 +130,54 @@ public class LeafParticle extends SpriteBillboardParticle
 	@Override
 	public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float tickDelta)
 	{
-		if (!expiring || !Main.CONFIG.fallingLeavesSettings.layFlatOnGround())
+		/*if (!expiring || !Main.CONFIG.fallingLeavesSettings.layFlatOnGround())
 		{
 			super.buildGeometry(vertexConsumer, camera, tickDelta);
 			return;
-		}
+		}*/
 
 		Vec3d vec3d = camera.getPos();
 		float f = (float)(MathHelper.lerp(tickDelta, prevPosX, x) - vec3d.getX());
 		float g = (float)(MathHelper.lerp(tickDelta, prevPosY, y) - vec3d.getY());
 		float h = (float)(MathHelper.lerp(tickDelta, prevPosZ, z) - vec3d.getZ());
 
-		Vector3f[] vector3fs = new Vector3f[]{new Vector3f(-1.0F, 0.0F, -1.0f), new Vector3f(-1.0F, 0.0F, 1.0F), new Vector3f(1.0F, 0.0F, 1.0F), new Vector3f(1.0F, 0.0F, -1.0F)};
+		Vector3f[] vector3fs;
 		float j = getSize(tickDelta);
 
-		for (int k = 0; k < 4; ++k)
+		if (!expiring || !Main.CONFIG.fallingLeavesSettings.layFlatOnGround())
 		{
-			Vector3f vector3f = vector3fs[k];
-			vector3f.rotateAxis(angle, 0, 1, 0);
-			vector3f.mul(j);
-			vector3f.add(f, g, h);
+			vector3fs = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
+
+			Quaternionf quaternionf;
+			if (angle == 0.0F)
+			{
+				quaternionf = camera.getRotation();
+			}
+			else
+			{
+				quaternionf = new Quaternionf(camera.getRotation());
+				quaternionf.rotateZ(MathHelper.lerp(tickDelta, prevAngle, angle));
+			}
+
+			for (int k = 0; k < 4; ++k)
+			{
+				Vector3f vector3f = vector3fs[k];
+				vector3f.rotate(quaternionf);
+				vector3f.mul(j);
+				vector3f.add(f, g, h);
+			}
+		}
+		else
+		{
+			vector3fs = new Vector3f[]{new Vector3f(-1.0F, 0.0F, -1.0f), new Vector3f(-1.0F, 0.0F, 1.0F), new Vector3f(1.0F, 0.0F, 1.0F), new Vector3f(1.0F, 0.0F, -1.0F)};
+
+			for (int k = 0; k < 4; ++k)
+			{
+				Vector3f vector3f = vector3fs[k];
+				vector3f.rotateAxis(angle, 0, 1, 0);
+				vector3f.mul(j);
+				vector3f.add(f, g, h);
+			}
 		}
 
 		float l = getMinU();
@@ -154,6 +185,12 @@ public class LeafParticle extends SpriteBillboardParticle
 		float n = getMinV();
 		float o = getMaxV();
 		int p = getBrightness(tickDelta);
+		if (flipped)
+		{
+			float temp = l;
+			l = m;
+			m = temp;
+		}
 		vertexConsumer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).texture(m, o).color(red, green, blue, alpha).light(p).next();
 		vertexConsumer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).texture(m, n).color(red, green, blue, alpha).light(p).next();
 		vertexConsumer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).texture(l, n).color(red, green, blue, alpha).light(p).next();
