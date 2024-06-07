@@ -106,6 +106,7 @@ publishMods {
 		}
 		requires("fabric-api")
 		requires("owo-lib")
+		requires("sushi-bar")
 		optional("modmenu")
 	}
 }
