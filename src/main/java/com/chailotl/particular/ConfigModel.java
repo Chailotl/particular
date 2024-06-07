@@ -50,9 +50,13 @@ public class ConfigModel
 		public List<Float> dailyRandom = Arrays.asList(
 			0f, 0f, 0f, 0.33f, 0.66f, 1f
 		);
+		@RangeConstraint(min = 0, max = 1)
 		public float grass = 1/6f;
+		@RangeConstraint(min = 0, max = 1)
 		public float tallGrass = 1/12f;
+		@RangeConstraint(min = 0, max = 1)
 		public float flowers = 1f;
+		@RangeConstraint(min = 0, max = 1)
 		public float tallFlowers = 0.5f;
 	}
 }
