@@ -23,7 +23,7 @@ public class InjectBlock
 	{
 		var key = biome.getKey();
 		if (key.isEmpty()) { return true; }
-		return !Main.CONFIG.excludeCaveDust().contains(key.get().getValue());
+		return !Main.CONFIG.caveDustSettings.excludeBiomes().contains(key.get().getValue());
 	}
 
 	@Inject(at = @At("TAIL"), method = "randomDisplayTick")
@@ -50,7 +50,7 @@ public class InjectBlock
 			// Cave dust
 			if (block == Blocks.AIR || block == Blocks.CAVE_AIR)
 			{
-				if (random.nextInt(700) == 0 && pos.getY() < world.getSeaLevel() && isValidBiome(world.getBiome(pos)))
+				if (random.nextInt(Main.CONFIG.caveDustSettings.spawnChance()) == 0 && pos.getY() < world.getSeaLevel() && isValidBiome(world.getBiome(pos)))
 				{
 					float lightChance = 1f - Math.min(8, world.getLightLevel(LightType.SKY, pos)) / 8f;
 					float depthChance = Math.min(1f, (world.getSeaLevel() - pos.getY()) / 96f);

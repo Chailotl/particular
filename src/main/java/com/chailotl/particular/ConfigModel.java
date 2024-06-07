@@ -2,6 +2,7 @@ package com.chailotl.particular;
 
 import com.chailotl.sushi_bar.owo.config.SushiModmenu;
 import io.wispforest.owo.config.annotation.*;
+import io.wispforest.owo.ui.core.Color;
 import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
@@ -32,12 +33,8 @@ public class ConfigModel
 	public FireflySettings fireflySettings = new FireflySettings();
 	@Nest
 	public FallingLeavesSettings fallingLeavesSettings = new FallingLeavesSettings();
-
-	public List<Identifier> excludeCaveDust = Arrays.asList(
-		new Identifier("minecraft:lush_caves"),
-		new Identifier("minecraft:dripstone_caves"),
-		new Identifier("minecraft:deep_dark")
-	);
+	@Nest
+	public CaveDustSettings caveDustSettings = new CaveDustSettings();
 
 	public static class FireflySettings
 	{
@@ -64,15 +61,44 @@ public class ConfigModel
 
 	public static class FallingLeavesSettings
 	{
-		@PredicateConstraint("minChance")
+		@PredicateConstraint("minOne")
 		public int spawnChance = 60;
 		public boolean spawnRipples = true;
 		public boolean layFlatOnGround = true;
 		public boolean layFlatRightAngles = false;
 
-		public static boolean minChance(int spawnChance)
+		public static boolean minOne(int num)
 		{
-			return spawnChance >= 1;
+			return num >= 1;
+		}
+	}
+
+	public static class CaveDustSettings
+	{
+		@PredicateConstraint("minOne")
+		public int spawnChance = 700;
+		@PredicateConstraint("minOne")
+		public int baseMaxAge = 200;
+		public Color color = Color.ofRgb(0x808080);
+		@PredicateConstraint("minZero")
+		public int fadeDuration = 20;
+		public float maxAcceleration = 0.03f;
+		@PredicateConstraint("minOne")
+		public int accelChangeChance = 180;
+		public List<Identifier> excludeBiomes = Arrays.asList(
+			new Identifier("minecraft:lush_caves"),
+			new Identifier("minecraft:dripstone_caves"),
+			new Identifier("minecraft:deep_dark")
+		);
+
+		public static boolean minOne(int num)
+		{
+			return num >= 1;
+		}
+
+		public static boolean minZero(int num)
+		{
+			return num >= 0;
 		}
 	}
 }
