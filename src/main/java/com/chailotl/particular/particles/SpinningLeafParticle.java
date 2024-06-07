@@ -8,15 +8,21 @@ import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 
-public class MangroveLeafParticle extends LeafParticle
+public class SpinningLeafParticle extends LeafParticle
 {
+	private final int flip = random.nextBoolean() ? 1 : -1;
 
-	protected MangroveLeafParticle(ClientWorld world, double x, double y, double z, double r, double g, double b, SpriteProvider provider)
+	protected SpinningLeafParticle(ClientWorld world, double x, double y, double z, double r, double g, double b, SpriteProvider provider)
 	{
 		super(world, x, y, z, r, g, b, provider);
 
-		gravityFactor = 0.1f; //0.125f;
-		scale = 7f / 32f;
+		angleFactor = (float) (Math.random() * Math.PI * 2.0);
+	}
+
+	@Override
+	protected float getAngle()
+	{
+		return (angleFactor + age / (rotateFactor + (maxAge - age) / 100f) / 2f) * flip;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -32,7 +38,7 @@ public class MangroveLeafParticle extends LeafParticle
 		@Override
 		public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ)
 		{
-			return new MangroveLeafParticle(world, x, y, z, velX, velY, velZ, provider);
+			return new SpinningLeafParticle(world, x, y, z, velX, velY, velZ, provider);
 		}
 	}
 }

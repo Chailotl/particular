@@ -8,9 +8,9 @@ import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 
-public class SpruceLeafParticle extends LeafParticle
+public class ConiferLeafParticle extends LeafParticle
 {
-	protected SpruceLeafParticle(ClientWorld world, double x, double y, double z, double r, double g, double b, SpriteProvider provider)
+	protected ConiferLeafParticle(ClientWorld world, double x, double y, double z, double r, double g, double b, SpriteProvider provider)
 	{
 		super(world, x, y, z, r, g, b, provider);
 
@@ -30,7 +30,7 @@ public class SpruceLeafParticle extends LeafParticle
 		@Override
 		public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ)
 		{
-			return new SpruceLeafParticle(world, x, y, z, velX, velY, velZ, provider);
+			return new ConiferLeafParticle(world, x, y, z, velX, velY, velZ, provider);
 		}
 	}
 }

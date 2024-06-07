@@ -137,14 +137,14 @@ public class Main implements ClientModInitializer
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash_foam"), WATER_SPLASH_FOAM);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash_ring"), WATER_SPLASH_RING);
 
-		ParticleFactoryRegistry.getInstance().register(OAK_LEAF, OakLeafParticle.DefaultFactory::new);
-		ParticleFactoryRegistry.getInstance().register(BIRCH_LEAF, BirchLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(SPRUCE_LEAF, SpruceLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(JUNGLE_LEAF, JungleLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(ACACIA_LEAF, AcaciaLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(DARK_OAK_LEAF, DarkOakLeafParticle.DefaultFactory::new);
-		ParticleFactoryRegistry.getInstance().register(AZALEA_LEAF, AzaleaLeafParticle.DefaultFactory::new);
-		ParticleFactoryRegistry.getInstance().register(MANGROVE_LEAF, MangroveLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(OAK_LEAF, LeafParticle.DefaultFactory::new);
+		ParticleFactoryRegistry.getInstance().register(BIRCH_LEAF, SpinningLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(SPRUCE_LEAF, ConiferLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(JUNGLE_LEAF, BigLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(ACACIA_LEAF, SpinningLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(DARK_OAK_LEAF, LeafParticle.DefaultFactory::new);
+		ParticleFactoryRegistry.getInstance().register(AZALEA_LEAF, LeafParticle.DefaultFactory::new);
+		ParticleFactoryRegistry.getInstance().register(MANGROVE_LEAF, BigLeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WATER_RIPPLE, WaterRippleParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE, EnderBubbleParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE_POP, EnderBubblePopParticle.Factory::new);
