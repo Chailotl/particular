@@ -2,6 +2,14 @@ package com.chailotl.particular;
 
 import com.chailotl.particular.mixin.AccessorBiome;
 import com.chailotl.particular.particles.*;
+import com.chailotl.particular.particles.leaves.BigLeafParticle;
+import com.chailotl.particular.particles.leaves.ConiferLeafParticle;
+import com.chailotl.particular.particles.leaves.LeafParticle;
+import com.chailotl.particular.particles.leaves.SpinningLeafParticle;
+import com.chailotl.particular.particles.splashes.WaterSplashEmitterParticle;
+import com.chailotl.particular.particles.splashes.WaterSplashFoamParticle;
+import com.chailotl.particular.particles.splashes.WaterSplashParticle;
+import com.chailotl.particular.particles.splashes.WaterSplashRingParticle;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
@@ -16,6 +24,7 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
+import net.minecraft.client.particle.BubblePopParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -137,17 +146,17 @@ public class Main implements ClientModInitializer
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash_foam"), WATER_SPLASH_FOAM);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash_ring"), WATER_SPLASH_RING);
 
-		ParticleFactoryRegistry.getInstance().register(OAK_LEAF, LeafParticle.DefaultFactory::new);
+		ParticleFactoryRegistry.getInstance().register(OAK_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(BIRCH_LEAF, SpinningLeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(SPRUCE_LEAF, ConiferLeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(JUNGLE_LEAF, BigLeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ACACIA_LEAF, SpinningLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(DARK_OAK_LEAF, LeafParticle.DefaultFactory::new);
-		ParticleFactoryRegistry.getInstance().register(AZALEA_LEAF, LeafParticle.DefaultFactory::new);
+		ParticleFactoryRegistry.getInstance().register(DARK_OAK_LEAF, LeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(AZALEA_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(MANGROVE_LEAF, BigLeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WATER_RIPPLE, WaterRippleParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE, EnderBubbleParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE_POP, EnderBubblePopParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE_POP, BubblePopParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(CAVE_DUST, CaveDustParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(FIREFLY, FireflyParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WATERFALL_SPRAY, WaterfallSprayParticle.Factory::new);

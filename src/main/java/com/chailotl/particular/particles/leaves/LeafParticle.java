@@ -1,4 +1,4 @@
-package com.chailotl.particular.particles;
+package com.chailotl.particular.particles.leaves;
 
 import com.chailotl.particular.Main;
 import net.fabricmc.api.EnvType;
@@ -161,11 +161,11 @@ public class LeafParticle extends SpriteBillboardParticle
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class DefaultFactory implements ParticleFactory<DefaultParticleType>
+	public static class Factory implements ParticleFactory<DefaultParticleType>
 	{
 		private final SpriteProvider provider;
 
-		public DefaultFactory(SpriteProvider provider)
+		public Factory(SpriteProvider provider)
 		{
 			this.provider = provider;
 		}

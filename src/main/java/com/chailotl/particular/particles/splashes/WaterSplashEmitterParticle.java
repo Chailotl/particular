@@ -1,4 +1,4 @@
-package com.chailotl.particular.particles;
+package com.chailotl.particular.particles.splashes;
 
 import com.chailotl.particular.Main;
 import com.chailotl.particular.mixin.AccessorBillboardParticle;
@@ -6,17 +6,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.render.*;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import org.joml.Vector3f;
 
 public class WaterSplashEmitterParticle extends NoRenderParticle
 {

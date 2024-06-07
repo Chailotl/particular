@@ -1,4 +1,4 @@
-package com.chailotl.particular.particles;
+package com.chailotl.particular.particles.leaves;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,14 +8,13 @@ import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 
-public class BigLeafParticle extends LeafParticle
+public class ConiferLeafParticle extends LeafParticle
 {
-	protected BigLeafParticle(ClientWorld world, double x, double y, double z, double r, double g, double b, SpriteProvider provider)
+	protected ConiferLeafParticle(ClientWorld world, double x, double y, double z, double r, double g, double b, SpriteProvider provider)
 	{
 		super(world, x, y, z, r, g, b, provider);
 
-		gravityFactor = 0.1f; //0.125f;
-		scale = 7f / 32f;
+		gravityFactor = 0.15f;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -31,7 +30,7 @@ public class BigLeafParticle extends LeafParticle
 		@Override
 		public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ)
 		{
-			return new BigLeafParticle(world, x, y, z, velX, velY, velZ, provider);
+			return new ConiferLeafParticle(world, x, y, z, velX, velY, velZ, provider);
 		}
 	}
 }
