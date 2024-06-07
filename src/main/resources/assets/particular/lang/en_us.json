@@ -31,5 +31,11 @@
 	"text.config.particular.option.fireflySettings.grass": "Grass",
 	"text.config.particular.option.fireflySettings.tallGrass": "Tall Grass",
 	"text.config.particular.option.fireflySettings.flowers": "Flowers",
-	"text.config.particular.option.fireflySettings.tallFlowers": "Tall Flowers"
+	"text.config.particular.option.fireflySettings.tallFlowers": "Tall Flowers",
+
+	"text.config.particular.category.fallingLeavesSettings": "Falling Leaves Settings",
+	"text.config.particular.option.fallingLeavesSettings.spawnChance": "Spawn Chance",
+	"text.config.particular.option.fallingLeavesSettings.spawnRipples": "Spawn Ripples",
+	"text.config.particular.option.fallingLeavesSettings.layFlatOnGround": "Lay Flat on the Ground",
+	"text.config.particular.option.fallingLeavesSettings.layFlatRightAngles": "Right Angle Snap When Laying Flat"
 }

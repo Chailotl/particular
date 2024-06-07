@@ -30,6 +30,8 @@ public class ConfigModel
 	@SectionHeader("advancedSettings")
 	@Nest
 	public FireflySettings fireflySettings = new FireflySettings();
+	@Nest
+	public FallingLeavesSettings fallingLeavesSettings = new FallingLeavesSettings();
 
 	public List<Identifier> excludeCaveDust = Arrays.asList(
 		new Identifier("minecraft:lush_caves"),
@@ -58,5 +60,19 @@ public class ConfigModel
 		public float flowers = 1f;
 		@RangeConstraint(min = 0, max = 1)
 		public float tallFlowers = 0.5f;
+	}
+
+	public static class FallingLeavesSettings
+	{
+		@PredicateConstraint("minChance")
+		public int spawnChance = 60;
+		public boolean spawnRipples = true;
+		public boolean layFlatOnGround = true;
+		public boolean layFlatRightAngles = false;
+
+		public static boolean minChance(int spawnChance)
+		{
+			return spawnChance >= 1;
+		}
 	}
 }

@@ -75,7 +75,17 @@ public class LeafParticle extends SpriteBillboardParticle
 		{
 			expiring = true;
 			y += 0.01d;
-			angle = (float) (Math.random() * 360f);
+			if (Main.CONFIG.fallingLeavesSettings.layFlatOnGround())
+			{
+				if (Main.CONFIG.fallingLeavesSettings.layFlatRightAngles())
+				{
+					angle = (float)(random.nextInt(4) / 2.0 * Math.PI);
+				}
+				else
+				{
+					angle = (float)(Math.random() * Math.PI * 2.0);
+				}
+			}
 		}
 
 		prevAngle = angle;
@@ -87,7 +97,10 @@ public class LeafParticle extends SpriteBillboardParticle
 			if (gravityStrength > 0)
 			{
 				y = pos.getY() + fluidState.getHeight(world, pos);
-				world.addParticle(Main.WATER_RIPPLE, x, y, z, 0, 0, 0);
+				if (Main.CONFIG.fallingLeavesSettings.spawnRipples())
+				{
+					world.addParticle(Main.WATER_RIPPLE, x, y, z, 0, 0, 0);
+				}
 			}
 
 			// Float on top of water
@@ -114,7 +127,7 @@ public class LeafParticle extends SpriteBillboardParticle
 	@Override
 	public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float tickDelta)
 	{
-		if (!expiring)
+		if (!expiring || !Main.CONFIG.fallingLeavesSettings.layFlatOnGround())
 		{
 			super.buildGeometry(vertexConsumer, camera, tickDelta);
 			return;

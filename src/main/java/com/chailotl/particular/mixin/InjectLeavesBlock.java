@@ -3,11 +3,8 @@ package com.chailotl.particular.mixin;
 import com.chailotl.particular.Main;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
+import java.util.Map;
 
 @Mixin(LeavesBlock.class)
 public class InjectLeavesBlock
@@ -31,7 +29,7 @@ public class InjectLeavesBlock
 	{
 		if (!Main.CONFIG.fallingLeaves()) { return; }
 
-		if (random.nextInt(60) == 0)
+		if (random.nextInt(Main.CONFIG.fallingLeavesSettings.spawnChance()) == 0)
 		{
 			BlockPos blockPos = pos.down();
 			BlockState blockState = world.getBlockState(blockPos);
@@ -41,41 +39,11 @@ public class InjectLeavesBlock
 				double y = pos.getY() - 0.05d;
 				double z = pos.getZ() + 0.02d + random.nextDouble() * 0.96d;
 
-				ParticleEffect particle = Main.OAK_LEAF;
-				Color color = new Color(BiomeColors.getFoliageColor(world, pos));
+				Main.LeafData leafData = Main.leafData.getOrDefault(state.getBlock(), new Main.LeafData(Main.OAK_LEAF));
 
-				Block block = state.getBlock();
-				if (block == Blocks.BIRCH_LEAVES)
-				{
-					particle = Main.BIRCH_LEAF;
-					color = new Color(FoliageColors.getBirchColor());
-				}
-				else if (block == Blocks.SPRUCE_LEAVES)
-				{
-					particle = Main.SPRUCE_LEAF;
-					color = new Color(FoliageColors.getSpruceColor());
-				}
-				else if (block == Blocks.JUNGLE_LEAVES)
-				{
-					particle = Main.JUNGLE_LEAF;
-				}
-				else if (block == Blocks.ACACIA_LEAVES)
-				{
-					particle = Main.ACACIA_LEAF;
-				}
-				else if (block == Blocks.DARK_OAK_LEAVES)
-				{
-					particle = Main.DARK_OAK_LEAF;
-				}
-				else if (block == Blocks.AZALEA_LEAVES || block == Blocks.FLOWERING_AZALEA_LEAVES)
-				{
-					particle = Main.AZALEA_LEAF;
-					color = Color.white;
-				}
-				else if (block == Blocks.MANGROVE_LEAVES)
-				{
-					particle = Main.MANGROVE_LEAF;
-				}
+				ParticleEffect particle = leafData.getParticle();
+				if (particle == null) { return; }
+				Color color = leafData.getColor(world, pos);
 
 				Particle leaf = MinecraftClient.getInstance().particleManager.addParticle(particle, x, y, z, 0, 0, 0);
 				if (leaf != null)

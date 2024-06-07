@@ -9,9 +9,13 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -28,7 +32,10 @@ import net.minecraft.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiFunction;
 
 public class Main implements ClientModInitializer
 {
@@ -59,6 +66,51 @@ public class Main implements ClientModInitializer
 	public static Identifier currentDimension;
 	public static ConcurrentHashMap<BlockPos, Integer> cascades = new ConcurrentHashMap<>();
 	private static float fireflyFrequency = 1f;
+
+	public static final Map<Block, LeafData> leafData = Map.of(
+		Blocks.OAK_LEAVES, new LeafData(OAK_LEAF),
+		Blocks.BIRCH_LEAVES, new LeafData(BIRCH_LEAF, new Color(FoliageColors.getBirchColor())),
+		Blocks.SPRUCE_LEAVES, new LeafData(SPRUCE_LEAF, new Color(FoliageColors.getSpruceColor())),
+		Blocks.JUNGLE_LEAVES, new LeafData(JUNGLE_LEAF),
+		Blocks.ACACIA_LEAVES, new LeafData(ACACIA_LEAF),
+		Blocks.DARK_OAK_LEAVES, new LeafData(DARK_OAK_LEAF),
+		Blocks.AZALEA_LEAVES, new LeafData(AZALEA_LEAF, Color.white),
+		Blocks.FLOWERING_AZALEA_LEAVES, new LeafData(AZALEA_LEAF, Color.white),
+		Blocks.MANGROVE_LEAVES, new LeafData(MANGROVE_LEAF),
+		Blocks.CHERRY_LEAVES, new LeafData(null)
+	);
+
+	public static class LeafData
+	{
+		private final ParticleEffect particle;
+		private final BiFunction<World, BlockPos, Color> colorBiFunc;
+
+		public LeafData(ParticleEffect particle, BiFunction<World, BlockPos, Color> colorBiFunc)
+		{
+			this.particle = particle;
+			this.colorBiFunc = colorBiFunc;
+		}
+
+		public LeafData(ParticleEffect particle, Color color)
+		{
+			this(particle, (world, pos) -> color);
+		}
+
+		public LeafData(ParticleEffect particle)
+		{
+			this(particle, (world, pos) -> new Color(BiomeColors.getFoliageColor(world, pos)));
+		}
+
+		public ParticleEffect getParticle()
+		{
+			return particle;
+		}
+
+		public Color getColor(World world, BlockPos pos)
+		{
+			return colorBiFunc.apply(world, pos);
+		}
+	}
 
 	@Override
 	public void onInitializeClient()
