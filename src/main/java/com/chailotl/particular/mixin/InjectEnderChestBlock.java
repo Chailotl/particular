@@ -1,6 +1,7 @@
 package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.property.Properties;
@@ -29,6 +30,6 @@ public class InjectEnderChestBlock
 			return;
 		}
 
-		Main.spawnChestBubbles(Main.ENDER_BUBBLE, world, pos);
+		Main.spawnChestBubbles(Particles.ENDER_BUBBLE, world, pos);
 	}
 }

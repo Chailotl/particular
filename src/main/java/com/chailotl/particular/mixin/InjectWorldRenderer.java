@@ -1,6 +1,7 @@
 package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.client.render.Camera;
@@ -30,7 +31,7 @@ public class InjectWorldRenderer
 	{
 		if (fluidState.isIn(FluidTags.WATER) && Main.CONFIG.rainRipples())
 		{
-			particleEffect.set(Main.WATER_RIPPLE);
+			particleEffect.set(Particles.WATER_RIPPLE);
 		}
 	}
 }

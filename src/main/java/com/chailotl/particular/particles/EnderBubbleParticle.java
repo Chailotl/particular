@@ -1,6 +1,7 @@
 package com.chailotl.particular.particles;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import com.chailotl.particular.mixin.AccessorBillboardParticle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,7 +29,7 @@ public class EnderBubbleParticle extends BubbleColumnUpParticle
 
 		if (this.dead)
 		{
-			Particle bubble = MinecraftClient.getInstance().particleManager.addParticle(Main.ENDER_BUBBLE_POP, x, y, z, 0, 0, 0);
+			Particle bubble = MinecraftClient.getInstance().particleManager.addParticle(Particles.ENDER_BUBBLE_POP, x, y, z, 0, 0, 0);
 			if (bubble != null)
 			{
 				((AccessorBillboardParticle) bubble).setScale(this.scale * 2f);

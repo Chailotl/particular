@@ -1,6 +1,7 @@
 package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.WaterFluid;
 import net.minecraft.registry.tag.FluidTags;
@@ -47,7 +48,7 @@ public class InjectWaterFluid
 						z += random.nextDouble();
 					}
 
-					world.addParticle(Main.WATERFALL_SPRAY, x, y, z, 0.0, 0.0, 0.0);
+					world.addParticle(Particles.WATERFALL_SPRAY, x, y, z, 0.0, 0.0, 0.0);
 				}
 				else
 				{
@@ -55,7 +56,7 @@ public class InjectWaterFluid
 					double y = (double) pos.getY() + (random.nextDouble() * state.getHeight());
 					double z = (double) pos.getZ() + random.nextDouble();
 					Vec3d vel = state.getVelocity(world, pos).multiply(0.075);
-					world.addParticle(Main.WATERFALL_SPRAY, x, y, z, vel.x, 0.0, vel.z);
+					world.addParticle(Particles.WATERFALL_SPRAY, x, y, z, vel.x, 0.0, vel.z);
 				}
 			}
 		}

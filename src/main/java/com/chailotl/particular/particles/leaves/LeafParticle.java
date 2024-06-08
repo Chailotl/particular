@@ -1,6 +1,7 @@
 package com.chailotl.particular.particles.leaves;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
@@ -19,7 +20,7 @@ import org.joml.Vector3f;
 public class LeafParticle extends SpriteBillboardParticle
 {
 	private static final int startAge = 10;
-	protected final float rotateFactor;
+	protected float rotateFactor;
 	protected float gravityFactor = 0.075f;
 	protected float angleFactor = 0f;
 	protected final boolean flipped;
@@ -102,7 +103,7 @@ public class LeafParticle extends SpriteBillboardParticle
 				y = pos.getY() + fluidState.getHeight(world, pos);
 				if (Main.CONFIG.fallingLeavesSettings.spawnRipples())
 				{
-					world.addParticle(Main.WATER_RIPPLE, x, y, z, 0, 0, 0);
+					world.addParticle(Particles.WATER_RIPPLE, x, y, z, 0, 0, 0);
 				}
 			}
 

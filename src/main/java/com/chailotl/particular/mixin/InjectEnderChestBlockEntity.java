@@ -1,6 +1,7 @@
 package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -75,7 +76,7 @@ public class InjectEnderChestBlockEntity extends BlockEntity
 			blockEntity.ticksUntilNextSwitch > 10 &&
 			blockEntity.ticksUntilNextSwitch % 2 == 0)
 		{
-			Main.spawnBubble(Main.ENDER_BUBBLE, world, pos);
+			Main.spawnBubble(Particles.ENDER_BUBBLE, world, pos);
 		}
 	}
 }

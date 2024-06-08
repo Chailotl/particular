@@ -2,11 +2,9 @@ package com.chailotl.particular;
 
 import com.chailotl.particular.compat.RegionsUnexplored;
 import com.chailotl.particular.compat.Traverse;
+import com.chailotl.particular.compat.WilderWild;
 import com.chailotl.particular.mixin.AccessorBiome;
 import com.chailotl.particular.particles.*;
-import com.chailotl.particular.particles.leaves.ConiferLeafParticle;
-import com.chailotl.particular.particles.leaves.LeafParticle;
-import com.chailotl.particular.particles.leaves.SpinningLeafParticle;
 import com.chailotl.particular.particles.splashes.WaterSplashEmitterParticle;
 import com.chailotl.particular.particles.splashes.WaterSplashFoamParticle;
 import com.chailotl.particular.particles.splashes.WaterSplashParticle;
@@ -17,7 +15,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -26,11 +23,9 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
-import net.minecraft.client.particle.BubblePopParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -55,86 +50,32 @@ public class Main implements ClientModInitializer
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final com.chailotl.particular.ParticularConfig CONFIG = com.chailotl.particular.ParticularConfig.createAndLoad();
 
-	public static final DefaultParticleType OAK_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType BIRCH_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType SPRUCE_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType JUNGLE_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType ACACIA_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType DARK_OAK_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType AZALEA_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType MANGROVE_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType WHITE_OAK_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType WHITE_SPRUCE_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType MAPLE_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType BRIMWOOD_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType BAOBAB_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType KAPOK_LEAF = FabricParticleTypes.simple();
-	public static final DefaultParticleType WATER_RIPPLE = FabricParticleTypes.simple();
-	public static final DefaultParticleType ENDER_BUBBLE = FabricParticleTypes.simple();
-	public static final DefaultParticleType ENDER_BUBBLE_POP = FabricParticleTypes.simple();
-	public static final DefaultParticleType CAVE_DUST = FabricParticleTypes.simple();
-	public static final DefaultParticleType FIREFLY = FabricParticleTypes.simple();
-	public static final DefaultParticleType WATERFALL_SPRAY = FabricParticleTypes.simple();
-	public static final DefaultParticleType CASCADE = FabricParticleTypes.simple(true);
-	public static final DefaultParticleType WATER_SPLASH_EMITTER = FabricParticleTypes.simple(true);
-	public static final DefaultParticleType WATER_SPLASH = FabricParticleTypes.simple(true);
-	public static final DefaultParticleType WATER_SPLASH_FOAM = FabricParticleTypes.simple(true);
-	public static final DefaultParticleType WATER_SPLASH_RING = FabricParticleTypes.simple(true);
-
 	public static Identifier currentDimension;
 	public static ConcurrentHashMap<BlockPos, Integer> cascades = new ConcurrentHashMap<>();
 	private static float fireflyFrequency = 1f;
 
 	private static Map<Block, LeafData> leavesData = new HashMap<>(Map.of(
-		Blocks.OAK_LEAVES, new LeafData(OAK_LEAF),
-		Blocks.BIRCH_LEAVES, new LeafData(BIRCH_LEAF, new Color(FoliageColors.getBirchColor())),
-		Blocks.SPRUCE_LEAVES, new LeafData(SPRUCE_LEAF, new Color(FoliageColors.getSpruceColor())),
-		Blocks.JUNGLE_LEAVES, new LeafData(JUNGLE_LEAF),
-		Blocks.ACACIA_LEAVES, new LeafData(ACACIA_LEAF),
-		Blocks.DARK_OAK_LEAVES, new LeafData(DARK_OAK_LEAF),
-		Blocks.AZALEA_LEAVES, new LeafData(AZALEA_LEAF, Color.white),
-		Blocks.FLOWERING_AZALEA_LEAVES, new LeafData(AZALEA_LEAF, Color.white),
-		Blocks.MANGROVE_LEAVES, new LeafData(MANGROVE_LEAF),
+		Blocks.OAK_LEAVES, new LeafData(Particles.OAK_LEAF),
+		Blocks.BIRCH_LEAVES, new LeafData(Particles.BIRCH_LEAF, new Color(FoliageColors.getBirchColor())),
+		Blocks.SPRUCE_LEAVES, new LeafData(Particles.SPRUCE_LEAF, new Color(FoliageColors.getSpruceColor())),
+		Blocks.JUNGLE_LEAVES, new LeafData(Particles.JUNGLE_LEAF),
+		Blocks.ACACIA_LEAVES, new LeafData(Particles.ACACIA_LEAF),
+		Blocks.DARK_OAK_LEAVES, new LeafData(Particles.DARK_OAK_LEAF),
+		Blocks.AZALEA_LEAVES, new LeafData(Particles.AZALEA_LEAF, Color.white),
+		Blocks.FLOWERING_AZALEA_LEAVES, new LeafData(Particles.AZALEA_LEAF, Color.white),
+		Blocks.MANGROVE_LEAVES, new LeafData(Particles.MANGROVE_LEAF),
 		Blocks.CHERRY_LEAVES, new LeafData(null)
 	));
-
-	public static class LeafData
-	{
-		private final ParticleEffect particle;
-		private final BiFunction<World, BlockPos, Color> colorBiFunc;
-
-		public LeafData(ParticleEffect particle, BiFunction<World, BlockPos, Color> colorBiFunc)
-		{
-			this.particle = particle;
-			this.colorBiFunc = colorBiFunc;
-		}
-
-		public LeafData(ParticleEffect particle, Color color)
-		{
-			this(particle, (world, pos) -> color);
-		}
-
-		public LeafData(ParticleEffect particle)
-		{
-			this(particle, (world, pos) -> new Color(BiomeColors.getFoliageColor(world, pos)));
-		}
-
-		public ParticleEffect getParticle()
-		{
-			return particle;
-		}
-
-		public Color getColor(World world, BlockPos pos)
-		{
-			return colorBiFunc.apply(world, pos);
-		}
-	}
 
 	@Override
 	public void onInitializeClient()
 	{
 		LOGGER.info("I am quite particular about the effects I choose to add :3");
 
+		// Register
+		Particles.register();
+
+		// Mod compat
 		if (FabricLoader.getInstance().isModLoaded("traverse"))
 		{
 			Traverse.addLeaves();
@@ -145,58 +86,12 @@ public class Main implements ClientModInitializer
 			RegionsUnexplored.addLeaves();
 		}
 
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "oak_leaf"), OAK_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "birch_leaf"), BIRCH_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "spruce_leaf"), SPRUCE_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "jungle_leaf"), JUNGLE_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "acacia_leaf"), ACACIA_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "dark_oak_leaf"), DARK_OAK_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "azalea_leaf"), AZALEA_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "mangrove_leaf"), MANGROVE_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "white_oak_leaf"), WHITE_OAK_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "white_spruce_leaf"), WHITE_SPRUCE_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "maple_leaf"), MAPLE_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "brimwood_leaf"), BRIMWOOD_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "baobab_leaf"), BAOBAB_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "kapok_leaf"), KAPOK_LEAF);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_ripple"), WATER_RIPPLE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "ender_bubble"), ENDER_BUBBLE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "ender_bubble_pop"), ENDER_BUBBLE_POP);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "cave_dust"), CAVE_DUST);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "firefly"), FIREFLY);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "waterfall_spray"), WATERFALL_SPRAY);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "cascade"), CASCADE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash_emitter"), WATER_SPLASH_EMITTER);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash"), WATER_SPLASH);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash_foam"), WATER_SPLASH_FOAM);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_splash_ring"), WATER_SPLASH_RING);
+		if (FabricLoader.getInstance().isModLoaded("wilderwild"))
+		{
+			WilderWild.addLeaves();
+		}
 
-		ParticleFactoryRegistry.getInstance().register(OAK_LEAF, LeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(BIRCH_LEAF, SpinningLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(SPRUCE_LEAF, ConiferLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(JUNGLE_LEAF, LeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(ACACIA_LEAF, SpinningLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(DARK_OAK_LEAF, LeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(AZALEA_LEAF, LeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(MANGROVE_LEAF, LeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WHITE_OAK_LEAF, LeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WHITE_SPRUCE_LEAF, ConiferLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(MAPLE_LEAF, SpinningLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(BRIMWOOD_LEAF, SpinningLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(BAOBAB_LEAF, LeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(KAPOK_LEAF, LeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WATER_RIPPLE, WaterRippleParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE, EnderBubbleParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE_POP, BubblePopParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(CAVE_DUST, CaveDustParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(FIREFLY, FireflyParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WATERFALL_SPRAY, WaterfallSprayParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(CASCADE, CascadeParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WATER_SPLASH_EMITTER, WaterSplashEmitterParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WATER_SPLASH, WaterSplashParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WATER_SPLASH_FOAM, WaterSplashFoamParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(WATER_SPLASH_RING, WaterSplashRingParticle.Factory::new);
-
+		// Client events
 		ClientChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
 			if (!Main.CONFIG.cascades()) { return; }
 
@@ -259,7 +154,7 @@ public class Main implements ClientModInitializer
 					z += random.nextDouble();
 				}
 
-				Particle cascade = MinecraftClient.getInstance().particleManager.addParticle(CASCADE, x, y, z, 0, 0, 0);
+				Particle cascade = MinecraftClient.getInstance().particleManager.addParticle(Particles.CASCADE, x, y, z, 0, 0, 0);
 				if (cascade != null)
 				{
 					float size = strength / 4f * height;
@@ -269,14 +164,46 @@ public class Main implements ClientModInitializer
 		});
 	}
 
-	public static void registerLeaves(Block block, LeafData leafData)
+	public static void registerLeafData(Block block, LeafData leafData)
 	{
 		leavesData.put(block, leafData);
 	}
 
 	public static LeafData getLeafData(Block block)
 	{
-		return leavesData.getOrDefault(block, new Main.LeafData(Main.OAK_LEAF));
+		return leavesData.getOrDefault(block, new Main.LeafData(Particles.OAK_LEAF));
+	}
+
+	public static class LeafData
+	{
+		private final ParticleEffect particle;
+		private final BiFunction<World, BlockPos, Color> colorBiFunc;
+
+		public LeafData(ParticleEffect particle, BiFunction<World, BlockPos, Color> colorBiFunc)
+		{
+			this.particle = particle;
+			this.colorBiFunc = colorBiFunc;
+		}
+
+		public LeafData(ParticleEffect particle, Color color)
+		{
+			this(particle, (world, pos) -> color);
+		}
+
+		public LeafData(ParticleEffect particle)
+		{
+			this(particle, (world, pos) -> new Color(BiomeColors.getFoliageColor(world, pos)));
+		}
+
+		public ParticleEffect getParticle()
+		{
+			return particle;
+		}
+
+		public Color getColor(World world, BlockPos pos)
+		{
+			return colorBiFunc.apply(world, pos);
+		}
 	}
 
 	public static void updateCascade(World world, BlockPos pos, FluidState state)
@@ -353,7 +280,7 @@ public class Main implements ClientModInitializer
 				temp >= CONFIG.fireflySettings.minTemp() &&
 				temp <= CONFIG.fireflySettings.maxTemp())
 			{
-				world.addParticle(Main.FIREFLY, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, 0, 0, 0);
+				world.addParticle(Particles.FIREFLY, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, 0, 0, 0);
 			}
 		}
 	}

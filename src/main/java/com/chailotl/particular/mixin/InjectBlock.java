@@ -1,8 +1,8 @@
 package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import net.minecraft.block.*;
-import net.minecraft.client.util.ParticleUtil;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -60,7 +60,7 @@ public class InjectBlock
 						double x = (double)pos.getX() + random.nextDouble();
 						double y = (double)pos.getY() + random.nextDouble();
 						double z = (double)pos.getZ() + random.nextDouble();
-						world.addParticle(Main.CAVE_DUST, x, y, z, 0.0, 0.0, 0.0);
+						world.addParticle(Particles.CAVE_DUST, x, y, z, 0.0, 0.0, 0.0);
 					}
 				}
 			}

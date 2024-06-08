@@ -45,6 +45,7 @@ dependencies {
 	//modCompileOnly "io.github.lucaargolo:fabric-seasons:${project.seasons_version}"
 	modCompileOnly "com.terraformersmc:traverse:${project.traverse_version}"
 	modCompileOnly "maven.modrinth:regions-unexplored:${project.regions_unexplored_version}"
+	modCompileOnly "maven.modrinth:wilder-wild:${project.wilder_wild_version}"
 }
 
 processResources {

@@ -1,6 +1,7 @@
 package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import net.minecraft.client.particle.BlockLeakParticle;
 import net.minecraft.client.particle.SpriteBillboardParticle;
 import net.minecraft.client.world.ClientWorld;
@@ -45,7 +46,7 @@ public abstract class InjectContinuousFalling extends SpriteBillboardParticle
 			float yWater = pos.getY() + fluidState.getHeight(world, pos);
 			if (y < yWater)
 			{
-				world.addParticle(Main.WATER_RIPPLE, x, yWater, z, 0, 0, 0);
+				world.addParticle(Particles.WATER_RIPPLE, x, yWater, z, 0, 0, 0);
 			}
 		}
 	}
