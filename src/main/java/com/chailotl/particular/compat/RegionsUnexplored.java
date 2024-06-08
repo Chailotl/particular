@@ -25,7 +25,7 @@ public class RegionsUnexplored
 		Main.registerLeafData(RuBlocks.DEAD_PINE_LEAVES, new Main.LeafData(Particles.WHITE_SPRUCE_LEAF, new Color(0x7D5C46)));
 		Main.registerLeafData(RuBlocks.BLACKWOOD_LEAVES, new Main.LeafData(Particles.WHITE_SPRUCE_LEAF, new Color(0x2D4519)));
 		Main.registerLeafData(RuBlocks.MAPLE_LEAVES, new Main.LeafData(Particles.MAPLE_LEAF));
-		Main.registerLeafData(RuBlocks.BRIMWOOD_LEAVES, new Main.LeafData(Particles.BRIMWOOD_LEAF));
+		Main.registerLeafData(RuBlocks.BRIMWOOD_LEAVES, new Main.LeafData(Particles.BRIMWOOD_LEAF, Color.white));
 		Main.registerLeafData(RuBlocks.BAOBAB_LEAVES, new Main.LeafData(Particles.RU_BAOBAB_LEAF));
 		Main.registerLeafData(RuBlocks.KAPOK_LEAVES, new Main.LeafData(Particles.KAPOK_LEAF));
 	}
