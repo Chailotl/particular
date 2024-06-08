@@ -45,7 +45,7 @@ public class LeafParticle extends SpriteBillboardParticle
 		rotateFactor = 4f + ((float) Math.random() * 3f);
 		flipped = Math.random() > 0.5;
 
-		scale = 5f / 32f;
+		scale = 7f / 32f;
 	}
 
 	protected float getAngle()

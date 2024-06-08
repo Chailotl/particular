@@ -1,9 +1,9 @@
 package com.chailotl.particular;
 
+import com.chailotl.particular.compat.RegionsUnexplored;
 import com.chailotl.particular.compat.Traverse;
 import com.chailotl.particular.mixin.AccessorBiome;
 import com.chailotl.particular.particles.*;
-import com.chailotl.particular.particles.leaves.BigLeafParticle;
 import com.chailotl.particular.particles.leaves.ConiferLeafParticle;
 import com.chailotl.particular.particles.leaves.LeafParticle;
 import com.chailotl.particular.particles.leaves.SpinningLeafParticle;
@@ -65,6 +65,10 @@ public class Main implements ClientModInitializer
 	public static final DefaultParticleType MANGROVE_LEAF = FabricParticleTypes.simple();
 	public static final DefaultParticleType WHITE_OAK_LEAF = FabricParticleTypes.simple();
 	public static final DefaultParticleType WHITE_SPRUCE_LEAF = FabricParticleTypes.simple();
+	public static final DefaultParticleType MAPLE_LEAF = FabricParticleTypes.simple();
+	public static final DefaultParticleType BRIMWOOD_LEAF = FabricParticleTypes.simple();
+	public static final DefaultParticleType BAOBAB_LEAF = FabricParticleTypes.simple();
+	public static final DefaultParticleType KAPOK_LEAF = FabricParticleTypes.simple();
 	public static final DefaultParticleType WATER_RIPPLE = FabricParticleTypes.simple();
 	public static final DefaultParticleType ENDER_BUBBLE = FabricParticleTypes.simple();
 	public static final DefaultParticleType ENDER_BUBBLE_POP = FabricParticleTypes.simple();
@@ -136,6 +140,11 @@ public class Main implements ClientModInitializer
 			Traverse.addLeaves();
 		}
 
+		if (FabricLoader.getInstance().isModLoaded("regions_unexplored"))
+		{
+			RegionsUnexplored.addLeaves();
+		}
+
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "oak_leaf"), OAK_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "birch_leaf"), BIRCH_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "spruce_leaf"), SPRUCE_LEAF);
@@ -146,6 +155,10 @@ public class Main implements ClientModInitializer
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "mangrove_leaf"), MANGROVE_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "white_oak_leaf"), WHITE_OAK_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "white_spruce_leaf"), WHITE_SPRUCE_LEAF);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "maple_leaf"), MAPLE_LEAF);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "brimwood_leaf"), BRIMWOOD_LEAF);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "baobab_leaf"), BAOBAB_LEAF);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "kapok_leaf"), KAPOK_LEAF);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "water_ripple"), WATER_RIPPLE);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "ender_bubble"), ENDER_BUBBLE);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "ender_bubble_pop"), ENDER_BUBBLE_POP);
@@ -161,13 +174,17 @@ public class Main implements ClientModInitializer
 		ParticleFactoryRegistry.getInstance().register(OAK_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(BIRCH_LEAF, SpinningLeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(SPRUCE_LEAF, ConiferLeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(JUNGLE_LEAF, BigLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(JUNGLE_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ACACIA_LEAF, SpinningLeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(DARK_OAK_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(AZALEA_LEAF, LeafParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(MANGROVE_LEAF, BigLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(MANGROVE_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WHITE_OAK_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WHITE_SPRUCE_LEAF, ConiferLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(MAPLE_LEAF, SpinningLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(BRIMWOOD_LEAF, SpinningLeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(BAOBAB_LEAF, LeafParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(KAPOK_LEAF, LeafParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(WATER_RIPPLE, WaterRippleParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE, EnderBubbleParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ENDER_BUBBLE_POP, BubblePopParticle.Factory::new);
