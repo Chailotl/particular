@@ -14,7 +14,7 @@ public class BigLeafParticle extends LeafParticle
 	{
 		super(world, x, y, z, r, g, b, provider);
 
-		rotateFactor = 2f + ((float) Math.random() * 3f);
+		rotateFactor = 6f + ((float) Math.random() * 3f);
 		scale = 9f / 32f;
 	}
 
