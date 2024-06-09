@@ -28,5 +28,16 @@ public class RegionsUnexplored
 		Main.registerLeafData(RuBlocks.BRIMWOOD_LEAVES, new Main.LeafData(Particles.BRIMWOOD_LEAF, Color.white));
 		Main.registerLeafData(RuBlocks.BAOBAB_LEAVES, new Main.LeafData(Particles.RU_BAOBAB_LEAF));
 		Main.registerLeafData(RuBlocks.KAPOK_LEAVES, new Main.LeafData(Particles.KAPOK_LEAF));
+		Main.registerLeafData(RuBlocks.EUCALYPTUS_LEAVES, new Main.LeafData(Particles.EUCALYPTUS_LEAF));
+		Main.registerLeafData(RuBlocks.PINE_LEAVES, new Main.LeafData(Particles.SPRUCE_LEAF));
+		Main.registerLeafData(RuBlocks.REDWOOD_LEAVES, new Main.LeafData(Particles.REDWOOD_LEAF));
+		Main.registerLeafData(RuBlocks.MAGNOLIA_LEAVES, new Main.LeafData(Particles.MAGNOLIA_LEAF));
+		Main.registerLeafData(RuBlocks.PALM_LEAVES, new Main.LeafData(Particles.RU_PALM_LEAF));
+		Main.registerLeafData(RuBlocks.LARCH_LEAVES, new Main.LeafData(Particles.LARCH_LEAF, Color.white));
+		Main.registerLeafData(RuBlocks.GOLDEN_LARCH_LEAVES, new Main.LeafData(Particles.GOLDEN_LARCH_LEAF, Color.white));
+		Main.registerLeafData(RuBlocks.SOCOTRA_LEAVES, new Main.LeafData(Particles.SOCOTRA_LEAF));
+		Main.registerLeafData(RuBlocks.BAMBOO_LEAVES, new Main.LeafData(Particles.BAMBOO_LEAF, Color.white));
+		Main.registerLeafData(RuBlocks.WILLOW_LEAVES, new Main.LeafData(Particles.WILLOW_LEAF));
+		Main.registerLeafData(RuBlocks.CYPRESS_LEAVES, new Main.LeafData(Particles.RU_CYPRESS_LEAF));
 	}
 }

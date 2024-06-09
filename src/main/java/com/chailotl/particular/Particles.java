@@ -38,6 +38,16 @@ public class Particles
 	public static final DefaultParticleType BRIMWOOD_LEAF = registerParticle("brimwood_leaf", SpinningLeafParticle.Factory::new);
 	public static final DefaultParticleType RU_BAOBAB_LEAF = registerParticle("ru_baobab_leaf", LeafParticle.Factory::new);
 	public static final DefaultParticleType KAPOK_LEAF = registerParticle("kapok_leaf", LeafParticle.Factory::new);
+	public static final DefaultParticleType EUCALYPTUS_LEAF = registerParticle("eucalyptus_leaf", BigLeafParticle.Factory::new);
+	public static final DefaultParticleType REDWOOD_LEAF = registerParticle("redwood_leaf", ConiferLeafParticle.Factory::new);
+	public static final DefaultParticleType MAGNOLIA_LEAF = registerParticle("magnolia_leaf", LeafParticle.Factory::new);
+	public static final DefaultParticleType RU_PALM_LEAF = registerParticle("ru_palm_leaf", BigLeafParticle.Factory::new);
+	public static final DefaultParticleType LARCH_LEAF = registerParticle("larch_leaf", ConiferLeafParticle.Factory::new);
+	public static final DefaultParticleType GOLDEN_LARCH_LEAF = registerParticle("golden_larch_leaf", ConiferLeafParticle.Factory::new);
+	public static final DefaultParticleType SOCOTRA_LEAF = registerParticle("socotra_leaf", LeafParticle.Factory::new);
+	public static final DefaultParticleType BAMBOO_LEAF = registerParticle("bamboo_leaf", LeafParticle.Factory::new);
+	public static final DefaultParticleType WILLOW_LEAF = registerParticle("willow_leaf", LeafParticle.Factory::new);
+	public static final DefaultParticleType RU_CYPRESS_LEAF = registerParticle("ru_cypress_leaf", ConiferLeafParticle.Factory::new);
 
 	// Wilder World leaves
 	public static final DefaultParticleType WW_BAOBAB_LEAF = registerParticle("ww_baobab_leaf", SpinningLeafParticle.Factory::new);

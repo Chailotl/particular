@@ -32,7 +32,7 @@ public class LeafParticle extends SpriteBillboardParticle
 		setSprite(provider);
 
 		collidesWithWorld = true;
-		gravityStrength = gravityFactor;
+		gravityStrength = 0;
 		maxAge = 200;
 
 		velocityX = 0;
@@ -59,10 +59,13 @@ public class LeafParticle extends SpriteBillboardParticle
 	{
 		super.tick();
 
+		gravityStrength = gravityFactor;
+
 		if (age <= startAge)
 		{
 			alpha += 0.1f;
 			velocityY = 0;
+			gravityStrength = 0;
 		}
 		else if (expiring)
 		{

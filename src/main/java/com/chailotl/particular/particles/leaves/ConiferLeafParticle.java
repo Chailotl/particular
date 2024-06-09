@@ -14,7 +14,7 @@ public class ConiferLeafParticle extends LeafParticle
 	{
 		super(world, x, y, z, r, g, b, provider);
 
-		gravityFactor = 0.15f;
+		gravityFactor = 0.3f;
 	}
 
 	@Environment(EnvType.CLIENT)
