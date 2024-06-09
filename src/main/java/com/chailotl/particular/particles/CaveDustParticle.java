@@ -36,7 +36,7 @@ public class CaveDustParticle extends AscendingParticle
 
 		int fadeDuration = Main.CONFIG.caveDustSettings.fadeDuration();
 
-		if (age < fadeDuration)
+		if (age <= fadeDuration)
 		{
 			alpha = age / (float)fadeDuration;
 		}

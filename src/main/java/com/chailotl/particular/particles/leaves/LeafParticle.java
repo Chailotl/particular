@@ -19,11 +19,14 @@ import org.joml.Vector3f;
 
 public class LeafParticle extends SpriteBillboardParticle
 {
-	private static final int startAge = 10;
+	protected static final int fadeInDuration = 10;
+	protected static final int rampUpDuration = 20;
+	protected static final int fadeOutDuration = 100;
+
 	protected float rotateFactor;
 	protected float gravityFactor = 0.075f;
-	protected float angleFactor = 0f;
-	protected final boolean flipped;
+	protected final boolean flippedSprite;
+	protected final int flippedDirection;
 	protected boolean expiring = false;
 
 	protected LeafParticle(ClientWorld world, double x, double y, double z, double r, double g, double b, SpriteProvider provider)
@@ -43,15 +46,24 @@ public class LeafParticle extends SpriteBillboardParticle
 		red = (float) r;
 		green = (float) g;
 		blue = (float) b;
-		rotateFactor = 4f + ((float) Math.random() * 3f);
-		flipped = Math.random() > 0.5;
+		rotateFactor = 6f + ((float) Math.random() * 3f);
+		flippedSprite = random.nextBoolean();
+		flippedDirection = random.nextBoolean() ? 1 : -1;
 
 		scale = 7f / 32f;
 	}
 
+	protected float clamp(float value, float min, float max)
+	{
+		return Math.max(min, Math.min(max, value));
+	}
+
 	protected float getAngle()
 	{
-		return angleFactor + (float) Math.sin(age / (rotateFactor + (maxAge - age) / 100f)) / 2f;
+		int time = age - fadeInDuration;
+		float speed = rotateFactor;
+		float amplitude = clamp(time, 0, 30) / 30f;
+		return (float) Math.sin(time / speed) * amplitude * 0.5f * flippedDirection;
 	}
 
 	@Override
@@ -59,28 +71,14 @@ public class LeafParticle extends SpriteBillboardParticle
 	{
 		super.tick();
 
-		gravityStrength = gravityFactor;
-
-		if (age <= startAge)
+		if (age <= fadeInDuration)
 		{
-			alpha += 0.1f;
 			velocityY = 0;
-			gravityStrength = 0;
 		}
-		else if (expiring)
-		{
-			if (alpha > 0.01f)
-			{
-				alpha -= 0.01f;
-			}
-			else
-			{
-				markDead();
-			}
-		}
-		else if (onGround || velocityY == 0)
+		else if (!expiring && (onGround || velocityY == 0))
 		{
 			expiring = true;
+			age = maxAge - fadeOutDuration;
 			y += 0.01d;
 			if (Main.CONFIG.fallingLeavesSettings.layFlatOnGround())
 			{
@@ -115,7 +113,7 @@ public class LeafParticle extends SpriteBillboardParticle
 			gravityStrength = 0;
 			// investigate this
 		}
-		else
+		else if (age >= fadeInDuration)
 		{
 			gravityStrength = gravityFactor;
 			if (!onGround)
@@ -178,17 +176,33 @@ public class LeafParticle extends SpriteBillboardParticle
 			}
 		}
 
+		float ageDelta = MathHelper.lerp(tickDelta, age, age + 1);
+		if (age <= fadeInDuration)
+		{
+			alpha = ageDelta / (float)fadeInDuration;
+		}
+		else if (age > maxAge - fadeOutDuration)
+		{
+			++ageDelta;
+			alpha = (maxAge - ageDelta) / (float)fadeOutDuration;
+		}
+		else
+		{
+			alpha = 1;
+		}
+
 		float l = getMinU();
 		float m = getMaxU();
 		float n = getMinV();
 		float o = getMaxV();
 		int p = getBrightness(tickDelta);
-		if (flipped)
+		if (flippedSprite)
 		{
 			float temp = l;
 			l = m;
 			m = temp;
 		}
+
 		vertexConsumer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).texture(m, o).color(red, green, blue, alpha).light(p).next();
 		vertexConsumer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).texture(m, n).color(red, green, blue, alpha).light(p).next();
 		vertexConsumer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).texture(l, n).color(red, green, blue, alpha).light(p).next();

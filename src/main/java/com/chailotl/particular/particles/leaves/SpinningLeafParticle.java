@@ -10,19 +10,21 @@ import net.minecraft.particle.DefaultParticleType;
 
 public class SpinningLeafParticle extends LeafParticle
 {
-	private final int flip = random.nextBoolean() ? 1 : -1;
+	protected float angleFactor;
 
 	protected SpinningLeafParticle(ClientWorld world, double x, double y, double z, double r, double g, double b, SpriteProvider provider)
 	{
 		super(world, x, y, z, r, g, b, provider);
 
 		angleFactor = (float) (Math.random() * Math.PI * 2.0);
+		angle = getAngle();
 	}
 
 	@Override
 	protected float getAngle()
 	{
-		return (angleFactor + age / (rotateFactor + (maxAge - age) / 100f) / 2f) * flip;
+		int a = Math.max(0, age - fadeInDuration);
+		return (angleFactor + a / (rotateFactor + (maxAge - a) / 100f) / 2f) * flippedDirection;
 	}
 
 	@Environment(EnvType.CLIENT)
