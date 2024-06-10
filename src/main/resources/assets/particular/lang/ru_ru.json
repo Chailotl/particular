@@ -1,21 +1,20 @@
 {
-  "text.config.particular.title": "Particular Config",
+  "text.config.particular.title": "Конфигурация Particular",
 
   "text.config.particular.section.enabledEffects": "Включенные эффекты",
   "text.config.particular.section.advancedSettings": "Продвинутые настройки",
   "text.config.particular.section.frequencyModifiers": "Модификаторы частоты появления",
 
   "text.config.particular.option.waterSplash": "Брызги от воды",
-  "text.config.particular.option.cascades": "Водопады",
-  "text.config.particular.option.waterfallSpray": "Брызги от водопада",
+  "text.config.particular.option.cascades": "Пена от водопадов",
+  "text.config.particular.option.waterfallSpray": "Брызги от водопадов",
   "text.config.particular.option.fireflies": "Светлячки",
   "text.config.particular.option.fallingLeaves": "Падающие листья",
   "text.config.particular.option.caveDust": "Пещерная пыль",
-  "text.config.particular.option.excludeCaveDust": "Биомы-исключения для появления пещерной пыли",
   "text.config.particular.option.chestBubbles": "Пузырьки из сундуков",
   "text.config.particular.option.soulSandBubbles": "Пузырьки из песка душ",
   "text.config.particular.option.barrelBubbles": "Пузырьки из бочек",
-  "text.config.particular.option.poppingBubbles": "Пузырьки лопаются",
+  "text.config.particular.option.poppingBubbles": "Лопание пузырьков",
   "text.config.particular.option.rainRipples": "Рябь от дождя",
   "text.config.particular.option.waterDripRipples": "Рябь от стекающих капель воды",
   "text.config.particular.option.cakeEatingParticles": "Частицы поедания торта",
@@ -31,5 +30,19 @@
   "text.config.particular.option.fireflySettings.grass": "Появление из травы",
   "text.config.particular.option.fireflySettings.tallGrass": "Появление из высокой травы",
   "text.config.particular.option.fireflySettings.flowers": "Появление из цветов",
-  "text.config.particular.option.fireflySettings.tallFlowers": "Появление из высоких цветов"
+  "text.config.particular.option.fireflySettings.tallFlowers": "Появление из высоких цветов",
+
+  "text.config.particular.category.fallingLeavesSettings": "Настройки падающих листьев",
+  "text.config.particular.option.fallingLeavesSettings.spawnChance": "Шанс появления частиц",
+  "text.config.particular.option.fallingLeavesSettings.spawnRipples": "Рябь от появления частиц",
+  "text.config.particular.option.fallingLeavesSettings.layFlatOnGround": "Упавшие листья лежат на земле",
+  "text.config.particular.option.fallingLeavesSettings.layFlatRightAngles": "Упавшие на землю листья имеют правильный угол",
+  "text.config.particular.category.caveDustSettings": "Настройки пещерной пыли",
+  "text.config.particular.option.caveDustSettings.spawnChance": "Шанс появления частиц",
+  "text.config.particular.option.caveDustSettings.baseMaxAge": "Максимальный возраст частиц",
+  "text.config.particular.option.caveDustSettings.color": "Цвет частиц",
+  "text.config.particular.option.caveDustSettings.fadeDuration": "Продолжительность затухания частиц",
+  "text.config.particular.option.caveDustSettings.maxAcceleration": "Максимальное ускорение частиц",
+  "text.config.particular.option.caveDustSettings.accelChangeChance": "Шанс изменения ускорения частиц",
+  "text.config.particular.option.caveDustSettings.excludeBiomes": "Биомы-исключения для появления частиц"
 }
