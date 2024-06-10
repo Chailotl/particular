@@ -21,6 +21,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -159,6 +160,11 @@ public class Main implements ClientModInitializer
 	public static void registerLeafData(Block block, LeafData leafData)
 	{
 		leavesData.put(block, leafData);
+	}
+
+	public static void registerLeafData(Identifier id, LeafData leafData)
+	{
+		Registries.BLOCK.getOrEmpty(id).ifPresent(block -> leavesData.put(block, leafData));
 	}
 
 	public static LeafData getLeafData(Block block)
