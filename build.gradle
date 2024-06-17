@@ -99,17 +99,4 @@ publishMods {
 	type = STABLE
 	displayName = "${project.mod_name} ${project.mod_version}"
 	modLoaders.add("fabric")
-
-	modrinth {
-		accessToken = providers.gradleProperty("modrinth_token").get()
-		projectId = "B1CcCd9h"
-		minecraftVersionRange {
-			start = "1.20"
-			end = "1.20.4"
-		}
-		requires("fabric-api")
-		requires("owo-lib")
-		requires("sushi-bar")
-		optional("modmenu")
-	}
 }

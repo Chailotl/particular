@@ -18,14 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Block.class)
 public class InjectBlock
 {
-	@Unique
-	private static boolean isValidBiome(RegistryEntry<Biome> biome)
-	{
-		var key = biome.getKey();
-		if (key.isEmpty()) { return true; }
-		return !Main.CONFIG.caveDustSettings.excludeBiomes().contains(key.get().getValue());
-	}
-
 	@Inject(at = @At("TAIL"), method = "randomDisplayTick")
 	public void spawnParticles(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci)
 	{
@@ -42,27 +34,6 @@ public class InjectBlock
 			{
 				Main.spawnFirefly(world, pos, random);
 				return;
-			}
-		}
-
-		if (Main.CONFIG.caveDust())
-		{
-			// Cave dust
-			if (block == Blocks.AIR || block == Blocks.CAVE_AIR)
-			{
-				if (random.nextInt(Main.CONFIG.caveDustSettings.spawnChance()) == 0 && pos.getY() < world.getSeaLevel() && isValidBiome(world.getBiome(pos)))
-				{
-					float lightChance = 1f - Math.min(8, world.getLightLevel(LightType.SKY, pos)) / 8f;
-					float depthChance = Math.min(1f, (world.getSeaLevel() - pos.getY()) / 96f);
-
-					if (random.nextFloat() < lightChance * depthChance)
-					{
-						double x = (double)pos.getX() + random.nextDouble();
-						double y = (double)pos.getY() + random.nextDouble();
-						double z = (double)pos.getZ() + random.nextDouble();
-						world.addParticle(Particles.CAVE_DUST, x, y, z, 0.0, 0.0, 0.0);
-					}
-				}
 			}
 		}
 	}

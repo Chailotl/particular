@@ -58,7 +58,6 @@ public class Particles
 	public static final DefaultParticleType WATER_RIPPLE = registerParticle("water_ripple", WaterRippleParticle.Factory::new);
 	public static final DefaultParticleType ENDER_BUBBLE = registerParticle("ender_bubble", EnderBubbleParticle.Factory::new);
 	public static final DefaultParticleType ENDER_BUBBLE_POP = registerParticle("ender_bubble_pop", BubblePopParticle.Factory::new);
-	public static final DefaultParticleType CAVE_DUST = registerParticle("cave_dust", CaveDustParticle.Factory::new);
 	public static final DefaultParticleType FIREFLY = registerParticle("firefly", FireflyParticle.Factory::new);
 	public static final DefaultParticleType WATERFALL_SPRAY = registerParticle("waterfall_spray", WaterfallSprayParticle.Factory::new);
 	public static final DefaultParticleType CASCADE = FabricParticleTypes.simple(true);
