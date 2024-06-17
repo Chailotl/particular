@@ -33,7 +33,6 @@ public class InjectBlock
 				(block instanceof TallFlowerBlock && val < Main.CONFIG.fireflySettings.tallFlowers()))
 			{
 				Main.spawnFirefly(world, pos, random);
-				return;
 			}
 		}
 	}
