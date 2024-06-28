@@ -1,14 +1,17 @@
 package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
+import net.minecraft.block.TrappedChestBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -101,17 +104,19 @@ public class InjectChestBlockEntity extends BlockEntity
 			}
 		}
 
+		ParticleEffect effect = (Main.CONFIG.redstoneBubbles() && chest instanceof TrappedChestBlock) ? Particles.REDSTONE_BUBBLE : ParticleTypes.BUBBLE_COLUMN_UP;
+
 		if (blockEntity.isOpen &&
 			blockEntity.ticksUntilNextSwitch > 10 &&
 			blockEntity.ticksUntilNextSwitch % 2 == 0)
 		{
 			if (state.get(Properties.CHEST_TYPE) == ChestType.SINGLE)
 			{
-				Main.spawnBubble(ParticleTypes.BUBBLE_COLUMN_UP, world, pos);
+				Main.spawnBubble(effect, world, pos);
 			}
 			else
 			{
-				Main.spawnDoubleBubbles(ParticleTypes.BUBBLE_COLUMN_UP, world, pos, state);
+				Main.spawnDoubleBubbles(effect, world, pos, state);
 			}
 		}
 	}

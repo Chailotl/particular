@@ -20,6 +20,7 @@ public class ConfigModel
 	public boolean fallingLeaves = true;
 	public boolean caveDust = true;
 	public boolean chestBubbles = true;
+	public boolean redstoneBubbles = false;
 	public boolean soulSandBubbles = true;
 	public boolean barrelBubbles = true;
 	public boolean poppingBubbles = true;

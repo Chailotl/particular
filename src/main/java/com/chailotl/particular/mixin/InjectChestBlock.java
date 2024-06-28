@@ -1,12 +1,15 @@
 package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
+import com.chailotl.particular.Particles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
+import net.minecraft.block.TrappedChestBlock;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
@@ -36,13 +39,15 @@ public class InjectChestBlock
 			return;
 		}
 
+		ParticleEffect effect = (Main.CONFIG.redstoneBubbles() && chest instanceof TrappedChestBlock) ? Particles.REDSTONE_BUBBLE : ParticleTypes.BUBBLE_COLUMN_UP;
+
 		if (state.get(Properties.CHEST_TYPE) == ChestType.SINGLE)
 		{
-			Main.spawnChestBubbles(ParticleTypes.BUBBLE_COLUMN_UP, world, pos);
+			Main.spawnChestBubbles(effect, world, pos);
 		}
 		else
 		{
-			Main.spawnDoubleChestBubbles(ParticleTypes.BUBBLE_COLUMN_UP, world, pos, state);
+			Main.spawnDoubleChestBubbles(effect, world, pos, state);
 		}
 	}
 }
