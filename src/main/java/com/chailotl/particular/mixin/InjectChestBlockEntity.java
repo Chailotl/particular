@@ -2,6 +2,7 @@ package com.chailotl.particular.mixin;
 
 import com.chailotl.particular.Main;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -68,10 +69,13 @@ public class InjectChestBlockEntity extends BlockEntity
 	{
 		if (!Main.CONFIG.soulSandBubbles()) { return; }
 
+		Block block = state.getBlock();
+		if(!(block instanceof ChestBlock chest)) { return; }
+
 		if (!state.get(Properties.WATERLOGGED) ||
 			state.get(Properties.CHEST_TYPE) == ChestType.LEFT ||
 			!getSoulSand(world, pos, state) ||
-			ChestBlock.getInventory((ChestBlock) Blocks.CHEST, state, world, pos, false) == null)
+			ChestBlock.getInventory(chest, state, world, pos, false) == null)
 		{
 			return;
 		}

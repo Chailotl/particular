@@ -29,7 +29,9 @@ public class InjectChestBlock
 	{
 		if (!Main.CONFIG.chestBubbles()) { return; }
 
-		if (!state.get(Properties.WATERLOGGED) || ChestBlock.getInventory((ChestBlock) Blocks.CHEST, state, world, pos, false) == null)
+		ChestBlock chest = (ChestBlock) (Object) this;
+
+		if (!state.get(Properties.WATERLOGGED) || ChestBlock.getInventory(chest, state, world, pos, false) == null)
 		{
 			return;
 		}
