@@ -52,6 +52,10 @@ public class InjectEnderChestBlockEntity extends BlockEntity
 			world.getBlockState(pos.down()).getBlock() != Blocks.SOUL_SAND ||
 			world.getBlockState(pos.up()).isSolidBlock(world, pos.up()))
 		{
+			if(blockEntity.isOpen) {
+				blockEntity.isOpen = false;
+				((AccessorEnderChestBlockEntity) blockEntity).getStateManager().closeContainer(null, world, pos, blockEntity.getCachedState());
+			}
 			return;
 		}
 

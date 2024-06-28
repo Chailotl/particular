@@ -8,6 +8,7 @@
 	"text.config.particular.option.caveDust": "Polvo de cuevas",
 	"text.config.particular.option.excludeCaveDust": "Biomas excluidos de polvo de cuevas",
 	"text.config.particular.option.chestBubbles": "Burbujas de cofres",
+	"text.config.particular.option.redstoneBubbles": "Cofres trampa crean burbujas de redstone",
 	"text.config.particular.option.soulSandBubbles": "Burbujas de cofres por arena de almas",
 	"text.config.particular.option.barrelBubbles": "Burbujas de barriles",
 	"text.config.particular.option.poppingBubbles": "Las burbujas estallan",
