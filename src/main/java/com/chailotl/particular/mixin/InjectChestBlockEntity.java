@@ -77,6 +77,10 @@ public class InjectChestBlockEntity extends BlockEntity
 			!getSoulSand(world, pos, state) ||
 			ChestBlock.getInventory(chest, state, world, pos, false) == null)
 		{
+			if(blockEntity.isOpen) {
+				blockEntity.isOpen = false;
+				((AccessorChestBlockEntity) blockEntity).getStateManager().closeContainer(null, world, pos, blockEntity.getCachedState());
+			}
 			return;
 		}
 
