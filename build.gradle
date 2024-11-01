@@ -101,7 +101,9 @@ publishMods {
 	modLoaders.add("fabric")
 
 	modrinth {
-		accessToken = providers.gradleProperty("modrinth_token").get()
+		if (providers.gradleProperty("modrinth_token").isPresent()) {
+			accessToken = providers.gradleProperty("modrinth_token").get()
+		}
 		projectId = "B1CcCd9h"
 		minecraftVersionRange {
 			start = "1.20"

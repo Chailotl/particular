@@ -24,6 +24,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import java.util.NoSuchElementException;
+
 @Mixin(Entity.class)
 public abstract class InjectEntity
 {
@@ -86,7 +88,14 @@ public abstract class InjectEntity
 
 		if (!foundSurface) { return; }
 
+		double splashVelocity;
+		try {
+			splashVelocity = Collections.max(velocities);
+		} catch (NoSuchElementException e) {
+			splashVelocity = 0.1;
+		}
+
 		// 3D splash
-		getWorld().addParticle(Particles.WATER_SPLASH_EMITTER, getX(), baseY + prevState.getHeight(), getZ(), dimensions.width, Collections.max(velocities), 0.0);
+		getWorld().addParticle(Particles.WATER_SPLASH_EMITTER, getX(), baseY + prevState.getHeight(), getZ(), dimensions.width, splashVelocity, 0.0);
 	}
 }
