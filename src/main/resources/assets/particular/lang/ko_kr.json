@@ -9,7 +9,7 @@
 	"text.config.particular.option.cascades": "폭포수",
 	"text.config.particular.option.waterfallSpray": "폭포에서 물 튀기기",
 	"text.config.particular.option.fireflies": "반딧불이",
-	"text.config.particular.option.fallingLeaves": "떨어지는 나뭇잎",
+	"text.config.particular.option.fallingLeaves": "낙엽",
 	"text.config.particular.option.caveDust": "동굴 먼지",
 	"text.config.particular.option.chestBubbles": "상자 거품",
 	"text.config.particular.option.soulSandBubbles": "영혼 모래로 인한 상자 거품",
@@ -32,7 +32,7 @@
 	"text.config.particular.option.fireflySettings.flowers": "꽃",
 	"text.config.particular.option.fireflySettings.tallFlowers": "큰 꽃",
 
-	"text.config.particular.category.fallingLeavesSettings": "떨어지는 나뭇잎 설정",
+	"text.config.particular.category.fallingLeavesSettings": "낙엽 설정",
 	"text.config.particular.option.fallingLeavesSettings.spawnChance": "스폰 기회",
 	"text.config.particular.option.fallingLeavesSettings.spawnRipples": "잎으로 인한 물결",
 	"text.config.particular.option.fallingLeavesSettings.layFlatOnGround": "바닥에 떨어지면 눕히기",
