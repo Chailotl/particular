@@ -48,7 +48,7 @@ public class WaterSplashRingParticle extends SpriteBillboardParticle
 	}
 
 	@Override
-	public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float tickDelta)
+	public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta)
 	{
 		Vec3d vec3d = camera.getPos();
 		float f = (float) (MathHelper.lerp(tickDelta, prevPosX, x) - vec3d.getX());

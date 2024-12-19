@@ -49,8 +49,8 @@ public class Main implements ClientModInitializer
 
 	private static Map<Block, LeafData> leavesData = new HashMap<>(Map.of(
 		Blocks.OAK_LEAVES, new LeafData(Particles.OAK_LEAF),
-		Blocks.BIRCH_LEAVES, new LeafData(Particles.BIRCH_LEAF, new Color(FoliageColors.getBirchColor())),
-		Blocks.SPRUCE_LEAVES, new LeafData(Particles.SPRUCE_LEAF, new Color(FoliageColors.getSpruceColor())),
+		Blocks.BIRCH_LEAVES, new LeafData(Particles.BIRCH_LEAF, new Color(FoliageColors.BIRCH)),
+		Blocks.SPRUCE_LEAVES, new LeafData(Particles.SPRUCE_LEAF, new Color(FoliageColors.SPRUCE)),
 		Blocks.JUNGLE_LEAVES, new LeafData(Particles.JUNGLE_LEAF),
 		Blocks.ACACIA_LEAVES, new LeafData(Particles.ACACIA_LEAF),
 		Blocks.DARK_OAK_LEAVES, new LeafData(Particles.DARK_OAK_LEAF),
