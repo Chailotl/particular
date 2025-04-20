@@ -1,8 +1,6 @@
 package com.chailotl.particular;
 
-import com.chailotl.particular.compat.RegionsUnexplored;
-import com.chailotl.particular.compat.Traverse;
-import com.chailotl.particular.compat.WilderWild;
+import com.chailotl.particular.compat.*;
 import com.chailotl.particular.mixin.AccessorBiome;
 import net.fabricmc.api.ClientModInitializer;
 
@@ -83,6 +81,22 @@ public class Main implements ClientModInitializer
 		{
 			WilderWild.addLeaves();
 		}
+
+		if (FabricLoader.getInstance().isModLoaded("pearfection"))
+		{
+			Pearfection.addLeaves();
+		}
+
+		if (FabricLoader.getInstance().isModLoaded("verdant"))
+		{
+			Verdant.addLeaves();
+		}
+
+		if (FabricLoader.getInstance().isModLoaded("charm"))
+		{
+			Charm.addLeaves();
+		}
+
 
 		// Client events
 		ClientChunkEvents.CHUNK_LOAD.register((world, chunk) -> {

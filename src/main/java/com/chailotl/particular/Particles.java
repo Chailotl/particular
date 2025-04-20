@@ -54,6 +54,16 @@ public class Particles
 	public static final SimpleParticleType WW_CYPRESS_LEAF = registerParticle("ww_cypress_leaf", ConiferLeafParticle.Factory::new);
 	public static final SimpleParticleType WW_PALM_LEAF = registerParticle("ww_palm_leaf", BigLeafParticle.Factory::new);
 
+	// Pearfection leaves
+	public static final SimpleParticleType PEAR_CALLERY_LEAF = registerParticle("pear_callery_leaf", LeafParticle.Factory::new);
+
+	// Verdant leaves
+	public static final SimpleParticleType VERD_MULBERRY_LEAF = registerParticle("verd_mulberry_leaf", SpinningLeafParticle.Factory::new);
+
+	// Charm leaves
+	public static final SimpleParticleType CHARM_EBONY_LEAF = registerParticle("charm_ebony_leaf", LeafParticle.Factory::new);
+
+
 	// Other particles
 	public static final SimpleParticleType WATER_RIPPLE = registerParticle("water_ripple", WaterRippleParticle.Factory::new);
 	public static final SimpleParticleType ENDER_BUBBLE = registerParticle("ender_bubble", EnderBubbleParticle.Factory::new);
