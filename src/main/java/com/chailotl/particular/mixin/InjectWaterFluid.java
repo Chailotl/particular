@@ -48,7 +48,7 @@ public class InjectWaterFluid
 						z += random.nextDouble();
 					}
 
-					world.addParticle(Particles.WATERFALL_SPRAY, x, y, z, 0.0, 0.0, 0.0);
+					world.addParticleClient(Particles.WATERFALL_SPRAY, x, y, z, 0.0, 0.0, 0.0);
 				}
 				else
 				{
@@ -56,7 +56,7 @@ public class InjectWaterFluid
 					double y = (double) pos.getY() + (random.nextDouble() * state.getHeight());
 					double z = (double) pos.getZ() + random.nextDouble();
 					Vec3d vel = state.getVelocity(world, pos).multiply(0.075);
-					world.addParticle(Particles.WATERFALL_SPRAY, x, y, z, vel.x, 0.0, vel.z);
+					world.addParticleClient(Particles.WATERFALL_SPRAY, x, y, z, vel.x, 0.0, vel.z);
 				}
 			}
 		}

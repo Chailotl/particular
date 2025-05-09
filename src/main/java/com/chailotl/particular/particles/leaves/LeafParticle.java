@@ -94,7 +94,7 @@ public class LeafParticle extends SpriteBillboardParticle
 			}
 		}
 
-		prevAngle = angle;
+		lastAngle = angle;
 
 		BlockPos pos = BlockPos.ofFloored(x, y, z);
 		FluidState fluidState = world.getFluidState(pos);
@@ -105,7 +105,7 @@ public class LeafParticle extends SpriteBillboardParticle
 				y = pos.getY() + fluidState.getHeight(world, pos);
 				if (Main.CONFIG.fallingLeavesSettings.spawnRipples())
 				{
-					world.addParticle(Particles.WATER_RIPPLE, x, y, z, 0, 0, 0);
+					world.addParticleClient(Particles.WATER_RIPPLE, x, y, z, 0, 0, 0);
 				}
 			}
 
@@ -134,9 +134,9 @@ public class LeafParticle extends SpriteBillboardParticle
 	public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta)
 	{
 		Vec3d vec3d = camera.getPos();
-		float f = (float)(MathHelper.lerp(tickDelta, prevPosX, x) - vec3d.getX());
-		float g = (float)(MathHelper.lerp(tickDelta, prevPosY, y) - vec3d.getY());
-		float h = (float)(MathHelper.lerp(tickDelta, prevPosZ, z) - vec3d.getZ());
+		float f = (float)(MathHelper.lerp(tickDelta, lastX, x) - vec3d.getX());
+		float g = (float)(MathHelper.lerp(tickDelta, lastY, y) - vec3d.getY());
+		float h = (float)(MathHelper.lerp(tickDelta, lastZ, z) - vec3d.getZ());
 
 		Vector3f[] vector3fs;
 		float j = getSize(tickDelta);
@@ -153,7 +153,7 @@ public class LeafParticle extends SpriteBillboardParticle
 			else
 			{
 				quaternionf = new Quaternionf(camera.getRotation());
-				quaternionf.rotateZ(MathHelper.lerp(tickDelta, prevAngle, angle));
+				quaternionf.rotateZ(MathHelper.lerp(tickDelta, lastAngle, angle));
 			}
 
 			for (int k = 0; k < 4; ++k)
@@ -203,7 +203,7 @@ public class LeafParticle extends SpriteBillboardParticle
 			l = m;
 			m = temp;
 		}
-		
+
 		vertexConsumer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).texture(m, o).color(red, green, blue, alpha).light(p);
 		vertexConsumer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).texture(m, n).color(red, green, blue, alpha).light(p);
 		vertexConsumer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).texture(l, n).color(red, green, blue, alpha).light(p);

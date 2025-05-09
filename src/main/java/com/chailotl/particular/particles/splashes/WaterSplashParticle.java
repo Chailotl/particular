@@ -63,9 +63,9 @@ public class WaterSplashParticle extends SpriteBillboardParticle
 	public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta)
 	{
 		Vec3d vec3d = camera.getPos();
-		float f = (float)(MathHelper.lerp(tickDelta, prevPosX, x) - vec3d.getX());
-		float g = (float)(MathHelper.lerp(tickDelta, prevPosY, y) - vec3d.getY());
-		float h = (float)(MathHelper.lerp(tickDelta, prevPosZ, z) - vec3d.getZ());
+		float f = (float)(MathHelper.lerp(tickDelta, lastX, x) - vec3d.getX());
+		float g = (float)(MathHelper.lerp(tickDelta, lastY, y) - vec3d.getY());
+		float h = (float)(MathHelper.lerp(tickDelta, lastZ, z) - vec3d.getZ());
 
 		Vector3f[] vector3fs = new Vector3f[]{new Vector3f(-1.0F, 0.0F, -1.0f), new Vector3f(-1.0F, 0.0F, 1.0F), new Vector3f(1.0F, 0.0F, 1.0F), new Vector3f(1.0F, 0.0F, -1.0F)};
 		float ageDelta = MathHelper.lerp(tickDelta, age - 1, (float)age);

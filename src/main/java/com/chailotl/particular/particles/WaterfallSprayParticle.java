@@ -34,9 +34,9 @@ public class WaterfallSprayParticle extends RainSplashParticle
 	@Override
 	public void tick()
 	{
-		prevPosX = x;
-		prevPosY = y;
-		prevPosZ = z;
+		lastX = x;
+		lastY = y;
+		lastZ = z;
 
 		if (maxAge-- <= 0)
 		{

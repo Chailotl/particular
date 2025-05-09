@@ -46,7 +46,7 @@ public abstract class InjectContinuousFalling extends SpriteBillboardParticle
 			float yWater = pos.getY() + fluidState.getHeight(world, pos);
 			if (y < yWater)
 			{
-				world.addParticle(Particles.WATER_RIPPLE, x, yWater, z, 0, 0, 0);
+				world.addParticleClient(Particles.WATER_RIPPLE, x, yWater, z, 0, 0, 0);
 			}
 		}
 	}

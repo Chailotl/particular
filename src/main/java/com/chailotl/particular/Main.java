@@ -258,7 +258,7 @@ public class Main implements ClientModInitializer
 		double y = pos.getY() + 0.25d + world.random.nextDouble() * 0.5d;
 		double z = pos.getZ() + 0.25d + world.random.nextDouble() * 0.5d;
 
-		world.addParticle(particle, x, y, z, 0, 0, 0);
+		world.addParticleClient(particle, x, y, z, 0, 0, 0);
 	}
 
 	public static void spawnFirefly(World world, BlockPos pos, Random random)
@@ -280,7 +280,7 @@ public class Main implements ClientModInitializer
 				temp >= CONFIG.fireflySettings.minTemp() &&
 				temp <= CONFIG.fireflySettings.maxTemp())
 			{
-				world.addParticle(Particles.FIREFLY, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, 0, 0, 0);
+				world.addParticleClient(Particles.FIREFLY, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, 0, 0, 0);
 			}
 		}
 	}
@@ -340,7 +340,7 @@ public class Main implements ClientModInitializer
 			double y = pos.getY() + 0.25d + world.random.nextDouble() * 0.5d;
 			double z = pos.getZ() + 0.25d + world.random.nextDouble() * (0.5d + zLen) + zOffset;
 
-			world.addParticle(particle, x, y, z, 0, 0, 0);
+			world.addParticleClient(particle, x, y, z, 0, 0, 0);
 		}
 	}
 
@@ -407,7 +407,7 @@ public class Main implements ClientModInitializer
 			double y = pos.getY() + 0.25d + world.random.nextDouble() * 0.5d;
 			double z = pos.getZ() + 0.25d + world.random.nextDouble() * (0.5d + zLen) + zOffset;
 
-			world.addParticle(particle, x, y, z, 0, 0, 0);
+			world.addParticleClient(particle, x, y, z, 0, 0, 0);
 		}
 	}
 }

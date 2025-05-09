@@ -93,7 +93,7 @@ public abstract class InjectChestBlockEntity extends LootableContainerBlockEntit
 				blockEntity.ticksUntilNextSwitch = world.random.nextBetween(minOpenTime, maxOpenTime);
 				((AccessorChestBlockEntity) blockEntity).getLidAnimator().setOpen(true);
 				((InvokerViewerCountManager)manager).invokeOnContainerOpen(world, pos, blockEntity.getCachedState());
-				world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundCategory.AMBIENT, 1f, 1f, true);
+				world.playSoundAtBlockCenterClient(pos, SoundEvents.BLOCK_BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundCategory.AMBIENT, 1f, 1f, true);
 			}
 		}
 

@@ -29,9 +29,9 @@ public class WaterSplashEmitterParticle extends NoRenderParticle
 		this.width = width;
 		this.height = (speed / 2f + width / 3f);
 
-		clientWorld.addParticle(Particles.WATER_SPLASH, x, y, z, width, this.height, 0);
-		clientWorld.addParticle(Particles.WATER_SPLASH_FOAM, x, y, z, width, this.height, 0);
-		clientWorld.addParticle(Particles.WATER_SPLASH_RING, x, y, z, width, 0, 0);
+		clientWorld.addParticleClient(Particles.WATER_SPLASH, x, y, z, width, this.height, 0);
+		clientWorld.addParticleClient(Particles.WATER_SPLASH_FOAM, x, y, z, width, this.height, 0);
+		clientWorld.addParticleClient(Particles.WATER_SPLASH_RING, x, y, z, width, 0, 0);
 
 		if (speed > 0.5)
 		{
@@ -50,9 +50,9 @@ public class WaterSplashEmitterParticle extends NoRenderParticle
 
 		if (age == 8)
 		{
-			world.addParticle(Particles.WATER_SPLASH, x, y, z, width * 0.66f, height * 2f, 0);
-			world.addParticle(Particles.WATER_SPLASH_FOAM, x, y, z, width * 0.66f, height * 2f, 0);
-			world.addParticle(Particles.WATER_SPLASH_RING, x, y, z, width * 0.66f, 0, 0);
+			world.addParticleClient(Particles.WATER_SPLASH, x, y, z, width * 0.66f, height * 2f, 0);
+			world.addParticleClient(Particles.WATER_SPLASH_FOAM, x, y, z, width * 0.66f, height * 2f, 0);
+			world.addParticleClient(Particles.WATER_SPLASH_RING, x, y, z, width * 0.66f, 0, 0);
 			splash(width * 0.66f, (3f/8f + speed * 1/8f) + (width / 6f), 0.05f);
 		}
 

@@ -59,7 +59,7 @@ public class InjectBlock
 						double x = (double)pos.getX() + random.nextDouble();
 						double y = (double)pos.getY() + random.nextDouble();
 						double z = (double)pos.getZ() + random.nextDouble();
-						world.addParticle(Particles.CAVE_DUST, x, y, z, 0.0, 0.0, 0.0);
+						world.addParticleClient(Particles.CAVE_DUST, x, y, z, 0.0, 0.0, 0.0);
 					}
 				}
 			}
