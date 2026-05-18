@@ -5,7 +5,21 @@
 	"name": "${name}",
 	"description": "Enhances Minecraft's ambience with hand-crafted visual effects like fireflies, falling leaves, and waterfall cascades",
 	"authors": [
-		"Chai"
+		{
+			"name": "Chai",
+			"contact": {
+				"homepage": "https://axoga.to/",
+				"sources": "https://github.com/Chailotl/"
+			}
+		}
+	],
+	"contributors": [
+		{
+			"name": "Nerjal Nosk",
+			"contact": {
+				"homepage": "https://codeberg.org/NerjalNosk/"
+			}
+		}
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/particular/",
@@ -15,7 +29,8 @@
 	"custom": {
 		"modmenu": {
 			"links": {
-				"modmenu.discord": "https://discord.gg/SuZb3aJUCx"
+				"modmenu.discord": "https://discord.gg/SuZb3aJUCx",
+				"modmenu.buymeacoffee": "https://www.buymeacoffee.com/chailotl"
 			}
 		}
 	},
