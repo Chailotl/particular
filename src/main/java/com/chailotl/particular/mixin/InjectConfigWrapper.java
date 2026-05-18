@@ -1,40 +1,36 @@
 package com.chailotl.particular.mixin;
 
-import blue.endless.jankson.Jankson;
 import com.chailotl.particular.sushi_bar.owo.config.SushiConfigScreen;
 import com.chailotl.particular.sushi_bar.owo.config.SushiModmenu;
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
 import io.wispforest.owo.config.ConfigWrapper;
-import io.wispforest.owo.config.ui.ConfigScreen;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
+import io.wispforest.owo.config.annotation.Modmenu;
+import io.wispforest.owo.config.ui.ConfigScreenProviders;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.function.Consumer;
-
-@Pseudo
 @Mixin(ConfigWrapper.class)
 public class InjectConfigWrapper
 {
+	@Definition(id = "getAnnotation", method = "Ljava/lang/Class;getAnnotation(Ljava/lang/Class;)Ljava/lang/annotation/Annotation;")
+	@Definition(id = "ModMenu", type = Modmenu.class)
+	@Expression("?.getAnnotation(ModMenu.class)")
 	@Inject(
-		method = "<init>(Ljava/lang/Class;Ljava/util/function/Consumer;)V",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/fabricmc/loader/api/FabricLoader;getEnvironmentType()Lnet/fabricmc/api/EnvType;"
-		)
+			method = "<init>(Ljava/lang/Class;Lio/wispforest/owo/config/ConfigWrapper$BuilderConsumer;)V",
+			at = @At(value = "MIXINEXTRAS:EXPRESSION")
 	)
-	private <C> void injectSushiModmenu(Class<C> clazz, Consumer<Jankson.Builder> janksonBuilder, CallbackInfo info)
+	private <C> void injectSushiModmenu(Class clazz, ConfigWrapper.BuilderConsumer consumer, CallbackInfo ci)
 	{
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT && clazz.isAnnotationPresent(SushiModmenu.class))
+		if (clazz.isAnnotationPresent(SushiModmenu.class))
 		{
-			SushiModmenu annotation = clazz.getAnnotation(SushiModmenu.class);
-			ConfigScreen.registerProvider(
-				annotation.modId(),
-				screen -> SushiConfigScreen.createWithCustomModel(Identifier.of(annotation.uiModelId()), (ConfigWrapper<C>)(Object)this, screen)
+			SushiModmenu annotation = (SushiModmenu) clazz.getAnnotation(SushiModmenu.class);
+			ConfigScreenProviders.register(
+					annotation.modId(),
+					screen -> SushiConfigScreen.createWithCustomModel(Identifier.of(annotation.uiModelId()), (ConfigWrapper<C>)(Object)this, screen)
 			);
 		}
 	}

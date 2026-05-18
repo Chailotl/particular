@@ -2,6 +2,7 @@ package com.chailotl.particular.sushi_bar.owo.config;
 
 import io.wispforest.owo.config.ConfigWrapper;
 import io.wispforest.owo.config.ui.ConfigScreen;
+import io.wispforest.owo.config.ui.ConfigScreenProviders;
 import io.wispforest.owo.config.ui.OptionComponentFactory;
 import io.wispforest.owo.util.ReflectionUtils;
 import net.minecraft.client.gui.screen.Screen;
@@ -33,9 +34,8 @@ public class SushiConfigScreen extends ConfigScreen
 		return new SushiConfigScreen(modelId, config, parent);
 	}
 
-	public static void registerConfig(String modId, ConfigWrapper<?> config)
-	{
-		ConfigScreen.registerProvider(modId, screen -> new SushiConfigScreen(config, screen));
+	public static void registerConfig(String modId, ConfigWrapper<?> config) {
+		ConfigScreenProviders.register(modId, screen -> new SushiConfigScreen(config, screen));
 	}
 
 	private static boolean isIdentifierList(Field field)
